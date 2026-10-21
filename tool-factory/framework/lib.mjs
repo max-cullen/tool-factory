@@ -16,6 +16,7 @@ export const ICON = {
  * Build the shared context for one tool site.
  * @param {object} cfg  { site, pages, network, preview }
  *   site:  { id, name, url, contact, tagline, mark (svg inner, optional), nav: [{id,label,hash?}], cta: (page)=>bool,
+ *            parent: umbrella brand shown in the footer ('A <parent> project.'), optional
  *            footerCols: [{title, links:[{id,label,hash?}]}], themeColor }
  *   pages: [{ id, slug, render(ctx, page) => {title, desc, body, faq?, tool?, noindex?} }]
  *   network: [{ id, name, url, blurb, live }]  (from /network.json, for links between tool sites)
@@ -66,12 +67,12 @@ export function footer(ctx, page) {
   <div class="wrap grid gap-10 pt-16 pb-10 md:grid-cols-[1.5fr_repeat(${cols.length},1fr)]">
     <div>
       <div class="brand" translate="no">${logo(ctx)}${site.name}</div>
-      <p class="mt-4 max-w-[34ch] text-[15px] text-ink-2">${site.tagline}</p>
+      <p class="mt-4 max-w-[34ch] text-[15px] text-ink-2">${site.parent ? `A ${esc(site.parent)} project.` : site.tagline}</p>
     </div>
     ${cols.join('\n    ')}
   </div>
   <div class="wrap flex flex-col gap-2 pb-12 text-[13px] text-ink-3 md:flex-row md:justify-between">
-    <p>&copy; <span data-year>2026</span> ${site.name}. ${site.footnote || ''}</p>
+    <p>&copy; <span data-year>2026</span> ${esc(site.parent || site.name)}. ${site.footnote || ''}</p>
     <p>${site.footnote2 || ''}${adsLive(site) || ctx.preview ? ' <button type="button" class="link-btn" data-privacy-settings>Privacy settings</button>' : ''}</p>
   </div>
 </footer>`;

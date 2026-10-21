@@ -11,11 +11,12 @@ const site = {
   name: 'Fitpic',
   url: 'https://usefitpic.com', // set to the real domain before launch
   contact: 'info@usefitpic.com', // set before launch
-  operator: 'TODO: your name or business name (and ABN if you have one)', // shown on the Terms page
+  parent: 'MacuTech', // umbrella brand for all the owner's projects (a brand name only, not a company)
+  operator: 'MacuTech', // shown on the Terms page. Replace with the owner's name if the site should say who is behind it.
   tagline: 'Fit photos to the exact size a form asks for. Everything runs in your browser.',
   privacySummary: 'Your photos never leave your device. Fitpic processes them inside your web browser, and they are not uploaded to us or anyone else. The site shows ads and uses privacy-friendly visitor statistics, explained below.',
-  footnote: 'Independent tool, not affiliated with any government agency, school or exam body.',
-  footnote2: 'Photos are processed on your device and never uploaded.',
+  footnote: 'Built to make things simpler.',
+  footnote2: 'Your images stay on your device. Never uploaded, never stored.',
   // Ads and analytics are off until these are filled in (see README, "Turning on ads").
   ads: { client: '', slots: { 'below-tool': '', mid: '' } },
   analytics: { cloudflareToken: '' },
@@ -99,7 +100,7 @@ const UPLOAD = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stro
 
 function toolHtml({ mode, kb, w, h }) {
   const seg = (name, n, opts, cls = '') => `<div class="seg ${cls}" data-seg style="--n:${n}" role="radiogroup" aria-label="${name}">${opts.map(([v, t]) => `<label><input type="radio" name="${name}" value="${v}"><span>${t}</span></label>`).join('')}</div>`;
-  const kbChips = SIZES.map((s) => `<button type="button" class="chip" data-kb-chip="${s.kb}" aria-pressed="false">${s.kb >= 1000 ? '1 MB' : s.kb + ' KB'}</button>`).join('');
+  const kbChips = SIZES.filter((s) => s.kb >= 100 || s.kb === Number(kb)).map((s) => `<button type="button" class="chip" data-kb-chip="${s.kb}" aria-pressed="false">${s.kb >= 1000 ? '1 MB' : s.kb + ' KB'}</button>`).join('');
   const pxChips = [['413', '531', 'Passport 413&times;531'], ['600', '600', 'Square 600&times;600'], ['800', '600', '800&times;600'], ['1200', '1600', '1200&times;1600'], ['', '', 'Original size']]
     .map(([pw, ph, t]) => `<button type="button" class="chip" data-px-chip data-w="${pw}" data-h="${ph}" aria-pressed="false"${pw === '413' ? ' title="35 &times; 45 mm at 300 dpi"' : ''}>${t}</button>`).join('');
   return `<section id="tool" class="tool" data-tool data-mode="${mode}"${kb ? ` data-kb="${kb}"` : ''}${w ? ` data-w="${w}" data-h="${h}"` : ''} aria-label="Photo fitting tool">
@@ -117,6 +118,7 @@ function toolHtml({ mode, kb, w, h }) {
       <div class="file-chip"><span data-name></span><span class="tag-example" data-example hidden>Example photo</span></div>
     </div>
     <div data-view hidden></div>
+    <button type="button" class="btn btn-primary choose-main choose-under" data-choose-main hidden>${UPLOAD}Choose your photo</button>
     <div class="readout" data-readout hidden aria-live="polite">
       <div class="sizes"><span class="from num" data-from></span><span class="to num" data-to></span><span class="delta" data-delta></span></div>
       <div class="bar" data-bar aria-hidden="true"><i></i></div>
@@ -129,6 +131,7 @@ function toolHtml({ mode, kb, w, h }) {
     </div>
   </div>
   <form class="panel" data-panel autocomplete="off" novalidate>
+    <button type="button" class="btn btn-primary choose-main choose-top" data-choose-main hidden>${UPLOAD}Choose your photo</button>
     <div class="block"><span class="lbl">Fit by</span>${seg('mode', 3, [['kb', 'File size'], ['px', 'Pixels'], ['both', 'Both']])}</div>
 
     <div class="block" data-sec="kb">
@@ -154,7 +157,7 @@ function toolHtml({ mode, kb, w, h }) {
 
     <p class="hint" data-msg role="status"></p>
     <div class="panel-actions">
-      <button type="button" class="btn btn-primary w-full" data-download disabled>Download</button>
+      <button type="button" class="btn btn-ghost w-full" data-download disabled>Download</button>
       <button type="button" class="btn btn-ghost w-full" data-choose>Choose another photo</button>
     </div>
   </form>

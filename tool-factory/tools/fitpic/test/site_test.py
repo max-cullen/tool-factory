@@ -68,8 +68,11 @@ with sync_playwright() as p:
         check("KB" in txt and float(txt.split()[0]) <= 100.0, f"{name}: 12MP photo fitted under 100 KB ({txt})")
         page.screenshot(path=f"{OUT}/{name}_tool_result.png")
 
-        # change preset to 20 KB, then check result
-        page.click("[data-kb-chip='20']")
+        tops = page.eval_on_selector_all("[data-sec='kb'] .chip", "e=>[...new Set(e.map(x=>Math.round(x.getBoundingClientRect().top)))]")
+        check(len(tops) == 1, f"{name}: size chips sit on one row ({tops})")
+
+        # change maximum to 20 KB, then check result
+        page.fill("[data-max]", "20")
         page.wait_for_timeout(3000)
         txt = page.inner_text("[data-to]")
         check("KB" in txt and float(txt.split()[0]) <= 20.0, f"{name}: preset 20 KB applied ({txt})")

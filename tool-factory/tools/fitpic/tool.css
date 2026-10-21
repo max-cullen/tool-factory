@@ -46,3 +46,11 @@
 
 }
 .stage.is-over::after { content: ""; position: absolute; inset: 10px; border: 2px solid var(--color-accent); border-radius: 22px; background: rgb(124 108 255 / 0.08); pointer-events: none; z-index: 4; }
+
+.choose-main { width: 100%; margin-top: 14px; height: 56px; font-size: 17px; gap: 10px; }
+.choose-main[hidden] { display: none; }
+.choose-top { display: none; margin-bottom: 4px; }
+@media (min-width: 920px) {
+  .choose-under { display: none; }
+  .choose-top:not([hidden]) { display: inline-flex; }
+}

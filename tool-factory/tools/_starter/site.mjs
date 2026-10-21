@@ -10,6 +10,7 @@ const site = {
   name: '__NAME__',
   url: 'https://example.com', // TODO: real domain before launch
   contact: 'hello@example.com', // TODO
+  parent: 'MacuTech', // umbrella brand in the footer; remove the line to show the tool's own name
   operator: 'TODO: your name or business name (and ABN if you have one)',
   tagline: 'TODO: one short sentence on what the tool does.',
   privacySummary: 'TODO: one or two sentences. Say plainly what happens to what visitors type or upload.',

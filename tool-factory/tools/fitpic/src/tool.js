@@ -88,7 +88,7 @@ class Tool {
     this.el = {
       stage: $(root, '[data-stage]'), drop: $(root, '[data-drop]'), file: $(root, '[data-file]'), view: $(root, '[data-view]'),
       readout: $(root, '[data-readout]'), top: $(root, '[data-stage-top]'), name: $(root, '[data-name]'), example: $(root, '[data-example]'),
-      busy: $(root, '[data-busy]'), err: $(root, '[data-err]'), dl: $(root, '[data-download]'), choose: $(root, '[data-choose]'),
+      busy: $(root, '[data-busy]'), err: $(root, '[data-err]'), dl: $(root, '[data-download]'), choose: $(root, '[data-choose]'), chooseMain: $$(root, '[data-choose-main]'),
       from: $(root, '[data-from]'), to: $(root, '[data-to]'), delta: $(root, '[data-delta]'), bar: $(root, '[data-bar]'),
       dim: $(root, '[data-dim]'), q: $(root, '[data-q]'), fmt: $(root, '[data-fmt]'), notes: $(root, '[data-notes]'), msg: $(root, '[data-msg]'),
       maxIn: $(root, '[data-max]'), minIn: $(root, '[data-min]'), minWrap: $(root, '[data-min-wrap]'), minOn: $(root, '[data-min-on]'),
@@ -104,6 +104,7 @@ class Tool {
     const { el, root } = this;
     el.drop.addEventListener('click', () => el.file.click());
     el.choose.addEventListener('click', () => el.file.click());
+    el.chooseMain.forEach((b) => b.addEventListener('click', () => el.file.click()));
     el.file.addEventListener('change', () => { const f = el.file.files?.[0]; if (f) this.loadFile(f); el.file.value = ''; });
 
     const stage = el.stage;
@@ -209,6 +210,16 @@ class Tool {
     if (msg) $(this.el.err, 'span').textContent = msg;
   }
 
+  /** While the example photo is showing, the big "Choose your photo" button sits under it and Download is secondary. */
+  setCta() {
+    const { dl, choose, chooseMain } = this.el;
+    const ex = this.sample;
+    chooseMain.forEach((b) => { b.hidden = !ex; });
+    choose.hidden = ex;
+    if (ex) { dl.disabled = true; dl.textContent = 'Download'; }
+    dl.classList.toggle('btn-success', !ex); dl.classList.toggle('btn-ghost', ex);
+  }
+
   async loadFile(file, { sample = false } = {}) {
     this.setBusy(true);
     this.runId++; this.abort?.abort();
@@ -225,6 +236,7 @@ class Tool {
       this.el.dl.disabled = true;
       this.el.name.textContent = sample ? 'example-photo.jpg' : `${this.fileName}  ${img.width} × ${img.height}`;
       this.el.example.hidden = !sample;
+      this.setCta();
       this.run();
     } catch (e) {
       this.setBusy(false);
@@ -296,8 +308,8 @@ class Tool {
     el.notes.innerHTML = notes.map(([k]) => `<div class="note note-${k}">${ICONS[k]}<span></span></div>`).join('');
     $$(el.notes, 'span').forEach((sp, i) => { sp.textContent = notes[i][1]; });
 
-    el.dl.disabled = false;
-    el.dl.textContent = `Download ${formatBytes(r.bytes)} ${EXT[r.format]}`;
+    el.dl.disabled = this.sample; // the example is only a demo: Download unlocks once the visitor's own photo is in
+    el.dl.textContent = this.sample ? 'Download' : `Download ${formatBytes(r.bytes)} ${EXT[r.format]}`;
     el.msg.textContent = ''; el.msg.className = 'hint';
   }
 
