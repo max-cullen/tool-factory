@@ -1,0 +1,16 @@
+{
+  "name": "tool-factory",
+  "private": true,
+  "type": "module",
+  "description": "Static, ad-funded web tools that share one framework and design.",
+  "scripts": {
+    "build": "node framework/build.mjs",
+    "preview": "node framework/build.mjs --preview",
+    "new": "node framework/new-tool.mjs"
+  },
+  "devDependencies": {
+    "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}

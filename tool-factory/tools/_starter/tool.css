@@ -1,0 +1,5 @@
+/* Styles that only this tool needs. Everything shared (colours, type, buttons, cards, tool shell) is in framework/styles.css. */
+@layer components {
+  .result-list { display: grid; gap: 8px; }
+  .result-list li { padding: 14px 16px; border-radius: 14px; background: var(--color-well); font-weight: 600; }
+}
