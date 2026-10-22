@@ -59,4 +59,19 @@ if (ads) fs.writeFileSync(path.join(DIST, 'ads.txt'), ads);
 fs.writeFileSync(path.join(DIST, 'robots.txt'), preview ? 'User-agent: *\nDisallow: /\n' : `User-agent: *\nAllow: /\nSitemap: ${base}/sitemap.xml\n`);
 
 execFileSync(path.join(ROOT, 'node_modules/.bin/tailwindcss'), ['-i', path.join(TOOL, 'styles.css'), '-o', path.join(DIST, 'assets/styles.css'), '--minify'], { cwd: ROOT, stdio: ['ignore', 'ignore', 'inherit'] });
+
+// Tools served inside this site at a sub-path (e.g. FitReel at usefitpic.com/instagram/): build each one and copy
+// its dist into ours. Its pages join our sitemap; robots.txt and ads.txt only make sense at the domain root.
+for (const inc of def.include || []) {
+  execFileSync(process.execPath, [fileURLToPath(import.meta.url), inc.tool, ...(preview ? ['--preview'] : [])], { stdio: 'inherit' });
+  const from = path.join(ROOT, 'tools', inc.tool, 'dist');
+  const to = path.join(DIST, inc.path);
+  fs.cpSync(from, to, { recursive: true });
+  for (const f of ['robots.txt', 'ads.txt']) fs.rmSync(path.join(to, f), { force: true });
+  const subMap = path.join(to, 'sitemap.xml');
+  const urls = fs.readFileSync(subMap, 'utf8').match(/<url>.*?<\/url>/g) || [];
+  fs.rmSync(subMap);
+  const mainMap = path.join(DIST, 'sitemap.xml');
+  fs.writeFileSync(mainMap, fs.readFileSync(mainMap, 'utf8').replace('</urlset>', urls.map((u) => `  ${u}\n`).join('') + '</urlset>'));
+}
 console.log(`built ${toolName}: ${def.pages.length} pages${preview ? ' (preview)' : ''} -> ${path.relative(ROOT, DIST)}`);

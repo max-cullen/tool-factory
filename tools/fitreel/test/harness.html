@@ -1,0 +1,38 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>FitReel engine harness</title>
+<!-- Loaded by run_tests.py. Exposes window.runCase for each test case. -->
+<script type="module">
+import * as E from '../engine/engine.js';
+const load = async (u) => { const r = await fetch(u); const b = await r.blob(); return new File([b], u.split('/').pop(), { type: b.type }); };
+const b64 = (blob) => new Promise((res) => { const fr = new FileReader(); fr.onload = () => res(String(fr.result).split(',')[1]); fr.readAsDataURL(blob); });
+window.E = E;
+window.runCase = async ({ file, second, opts, cover, abortAfterMs }) => {
+  const out = { ok: false };
+  try {
+    out.support = E.browserSupport();
+    out.videoCodec = await E.pickVideoCodec();
+    out.audioCodecPick = await E.pickAudioCodec();
+    const main = await E.openVideo(await load(file));
+    out.clip = { duration: main.duration, width: main.width, height: main.height, fps: main.fps, start: main.start, codec: main.codec, audio: !!main.audio, meta: main.meta };
+    const sec = second ? await E.openVideo(await load(second)) : null;
+    if (cover) {
+      const t = await E.pickCover(main, opts);
+      const jpg = await E.renderCover(main, sec, opts, t);
+      out.cover = { t, bytes: jpg.size, type: jpg.type, data: await b64(jpg) };
+    }
+    const ac = new AbortController();
+    if (abortAfterMs) setTimeout(() => ac.abort(), abortAfterMs);
+    const progress = [];
+    const t0 = performance.now();
+    const r = await E.renderReel({ main, second: sec, opts, signal: ac.signal, onProgress: (p) => progress.push(p) });
+    out.ms = Math.round(performance.now() - t0);
+    out.result = { bytes: r.bytes, duration: r.duration, videoCodec: r.videoCodec, audioCodec: r.audioCodec, hasAudio: r.hasAudio, fps: r.fps, warnings: r.warnings };
+    out.progress = { n: progress.length, last: progress[progress.length - 1], monotonic: progress.every((p, i) => i === 0 || p >= progress[i - 1]) };
+    out.data = await b64(r.blob);
+    out.ok = true;
+  } catch (e) { out.error = { message: e.message, code: e.code }; }
+  return out;
+};
+window.READY = true;
+</script>
