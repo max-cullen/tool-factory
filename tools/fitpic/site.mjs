@@ -20,7 +20,7 @@ const site = {
   // Ads and analytics are off until these are filled in (see README, "Turning on ads").
   ads: { client: 'ca-pub-8622882132846694', slots: { 'below-tool': '', mid: '', 'rail-left': '', 'rail-right': '' } },
   analytics: { cloudflareToken: '' },
-  nav: [{ id: 'kb', label: 'File size' }, { id: 'px', label: 'Pixels' }, { id: 'home', label: 'Popular sizes', hash: '#sizes' }, { path: 'instagram/', label: 'Reels' }],
+  nav: [{ id: 'kb', label: 'File size' }, { id: 'px', label: 'Pixels' }, { id: 'home', label: 'Popular sizes', hash: '#sizes' }],
   cta: (page) => page.tool,
   footerCols: [
     { title: 'Tools', links: [{ id: 'kb', label: 'Reduce size in KB' }, { id: 'px', label: 'Resize to exact pixels' }, { path: 'instagram/', label: 'Video for Reels' }] },

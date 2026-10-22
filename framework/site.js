@@ -22,3 +22,13 @@ if (year) year.textContent = String(new Date().getFullYear());
 document.querySelectorAll('[data-privacy-settings]').forEach((b) => b.addEventListener('click', () => {
   try { if (window.googlefc && typeof window.googlefc.showRevocationMessage === 'function') window.googlefc.showRevocationMessage(); } catch (e) { /* no consent message on this page */ }
 }));
+
+// "Fit tools" menu in the header: opens on click, closes on outside click or Escape.
+const fam = document.querySelector('[data-fam]');
+if (fam) {
+  const btn = fam.querySelector('[data-fam-toggle]'), pop = fam.querySelector('[data-fam-pop]');
+  const set = (open) => { pop.hidden = !open; btn.setAttribute('aria-expanded', String(open)); };
+  btn.addEventListener('click', (e) => { e.stopPropagation(); set(pop.hidden); });
+  document.addEventListener('click', (e) => { if (!fam.contains(e.target)) set(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !pop.hidden) { set(false); btn.focus(); } });
+}

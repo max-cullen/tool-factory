@@ -4,13 +4,29 @@
     "name": "Fitpic",
     "url": "https://usefitpic.com",
     "blurb": "Fit any photo to an exact KB size or exact pixels",
-    "live": false
+    "live": true
   },
   {
     "id": "fitreel",
     "name": "FitReel",
     "url": "https://usefitpic.com/instagram",
     "blurb": "Get any video Reel-ready: 9:16, location removed, cover picked",
-    "live": false
+    "live": true
+  },
+  {
+    "id": "fitqr",
+    "name": "FitQR",
+    "url": "",
+    "blurb": "Coming soon",
+    "live": false,
+    "soon": true
+  },
+  {
+    "id": "fittimer",
+    "name": "FitTimer",
+    "url": "",
+    "blurb": "Coming soon",
+    "live": false,
+    "soon": true
   }
 ]

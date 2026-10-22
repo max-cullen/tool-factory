@@ -49,18 +49,29 @@ export function logo(ctx) {
   return `<span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">${mark}</svg></span>`;
 }
 
+/** The Fit family (every tool in network.json). Tools marked soon:true are placeholders: shown, not linked. */
+const CHEV = '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>';
+export function familyItems(ctx, cls = 'fam-item') {
+  return ctx.network.map((t) => {
+    if (t.soon || !t.url) return `<span class="${cls} is-soon" aria-disabled="true" translate="no">${esc(t.name)}<span class="fam-tag">Soon</span></span>`;
+    const here = t.id === ctx.site.id;
+    return `<a class="${cls}${here ? ' is-here' : ''}" href="${esc(t.url)}"${here ? ' aria-current="true"' : ''} translate="no">${esc(t.name)}</a>`;
+  }).join('');
+}
+
 export function header(ctx, page) {
   const { site, link, itemHref } = ctx;
   const items = site.nav.map((n) => `<a class="navlink" href="${itemHref(page, n)}"${n.id && page.id === n.id && !n.hash ? ' aria-current="page"' : ''}>${n.label}</a>`).join('');
+  const fam = `<div class="fam" data-fam><button type="button" class="navlink fam-btn" data-fam-toggle aria-expanded="false" aria-haspopup="true">Fit tools${CHEV}</button><div class="fam-pop" data-fam-pop hidden>${familyItems(ctx)}</div></div>`;
   const cta = site.cta?.(page) ? '<a class="btn btn-light !h-10 !px-5 !text-sm" href="#tool">Try it</a>' : '';
   return `<a class="skip" href="#main">Skip to content</a>
 <header class="site-header" data-header>
   <div class="wrap flex h-16 items-center justify-between gap-4">
     <a href="${link(page, 'home')}" class="brand" translate="no" aria-label="${esc(site.name)} home">${logo(ctx)}${site.name}</a>
-    <nav class="hidden items-center gap-1 md:flex" aria-label="Main">${items}</nav>
+    <nav class="hidden items-center gap-1 md:flex" aria-label="Main">${items}${fam}</nav>
     <div class="flex items-center gap-2">${cta}<button type="button" class="icon-btn md:!hidden" data-menu-toggle aria-expanded="false" aria-label="Menu">${ICON.menu}</button></div>
   </div>
-  <div class="md:hidden" data-menu hidden><nav class="wrap flex flex-col pb-3" aria-label="Mobile">${items}</nav></div>
+  <div class="md:hidden" data-menu hidden><nav class="wrap flex flex-col pb-3" aria-label="Mobile">${items}<p class="fam-title">Fit tools</p>${familyItems(ctx, 'navlink fam-m')}</nav></div>
 </header>`;
 }
 
@@ -69,7 +80,7 @@ export function footer(ctx, page) {
   const li = (l) => `<li><a href="${itemHref(page, l)}">${l.label}</a></li>`;
   const col = (title, inner) => `<div><p class="text-sm font-semibold text-ink">${title}</p><ul class="m-0 mt-4 grid list-none gap-2.5 p-0 text-[15px]">${inner}</ul></div>`;
   const cols = site.footerCols.map((c) => col(c.title, c.links.map(li).join('')));
-  if (otherTools.length) cols.push(col('More tools', otherTools.map((t) => `<li><a href="${t.url}">${esc(t.name)}</a></li>`).join('')));
+  if (ctx.network.length) cols.push(col('Fit tools', ctx.network.map((t) => (t.soon || !t.url) ? `<li><span class="fam-foot is-soon" translate="no">${esc(t.name)}<span class="fam-tag">Soon</span></span></li>` : `<li><a href="${esc(t.url)}" translate="no">${esc(t.name)}</a></li>`).join('')));
   return `<footer class="site-footer">
   <div class="wrap grid gap-10 pt-16 pb-10 md:grid-cols-[1.5fr_repeat(${cols.length},1fr)]">
     <div>

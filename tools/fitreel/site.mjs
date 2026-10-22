@@ -24,11 +24,10 @@ const site = {
   mark: '<rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 9.2v5.6l4.4-2.8z" fill="currentColor" stroke="none"/>',
   ads: { client: 'ca-pub-8622882132846694', slots: { 'below-tool': '', mid: '', 'rail-left': '', 'rail-right': '' } },
   analytics: { cloudflareToken: '' },
-  nav: [{ id: 'split', label: 'Split screen' }, { id: 'meta', label: 'Remove location' }, { path: '../', label: 'Photo tools' }],
+  nav: [{ id: 'split', label: 'Split screen' }, { id: 'meta', label: 'Remove location' }],
   cta: (page) => page.tool,
   footerCols: [
     { title: 'Tools', links: [{ id: 'home', label: 'Reel-ready video' }, { id: 'ratio', label: 'Convert to 9:16' }, { id: 'split', label: 'Split screen' }, { id: 'meta', label: 'Remove video location' }] },
-    { title: 'Fitpic', links: [{ path: '../', label: 'Photo resizer' }, { path: '../reduce-image-size-in-kb/', label: 'Reduce size in KB' }] },
     { title: 'Site', links: [{ id: 'about', label: 'About' }, { id: 'privacy', label: 'Privacy' }, { id: 'terms', label: 'Terms' }, { id: 'contact', label: 'Contact' }] },
   ],
 };
