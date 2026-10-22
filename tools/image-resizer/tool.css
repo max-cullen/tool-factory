@@ -1,0 +1,98 @@
+/* Image Resizer: styles only this tool needs. Shared colours, type, buttons, .tool/.panel/.stage/.drop, .seg, .field,
+   .check, .chip, .note, .card and FAQ come from framework/styles.css. Everything here is prefixed rs-. */
+@layer components {
+  .rs-tool { grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 920px) { .rs-tool { grid-template-columns: minmax(0, 1fr) 396px; } }
+  .rs-stage { gap: 14px; }
+  .rs-panel { gap: 22px; }
+  .rs-private { font-weight: 500; margin-top: auto; }
+  .rs-private strong { font-weight: 700; }
+  .rs-stage .err { padding: 12px 14px; border-radius: 14px; background: var(--color-bad-soft); color: var(--color-bad); font-size: 14px; font-weight: 550; margin: 0; }
+
+  /* File list */
+  .rs-files { display: flex; flex-direction: column; gap: 12px; flex: 1; min-width: 0; }
+  .rs-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .rs-bar-btns { display: flex; gap: 8px; }
+  .rs-bar .chip { gap: 6px; }
+  .rs-status { margin: 0; font-size: 14px; font-weight: 600; color: var(--color-ink-2); }
+  .rs-list { display: grid; gap: 10px; }
+  .rs-file { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 4px 14px; align-items: start; padding: 12px; border-radius: 18px; background: rgb(255 255 255 / 0.04); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.07); min-width: 0; }
+  .rs-thumb { grid-row: span 2; width: 76px; height: 76px; border-radius: 12px; overflow: hidden; background: conic-gradient(#2a2f57 25%, #1c2044 0 50%, #2a2f57 0 75%, #1c2044 0) 0 0 / 14px 14px; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08); }
+  .rs-thumb img { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .rs-info { min-width: 0; display: grid; gap: 6px; }
+  .rs-name { margin: 0; font-size: 15px; font-weight: 650; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .rs-sizes { display: grid; gap: 2px; margin: 0; font-size: 13.5px; }
+  .rs-sizes div { display: flex; gap: 8px; min-width: 0; flex-wrap: wrap; }
+  .rs-sizes dt { width: 50px; flex: none; color: var(--color-ink-3); }
+  .rs-sizes dd { margin: 0; color: var(--color-ink); font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
+  .rs-sizes .rs-after dd { color: var(--color-good); }
+  .rs-change { color: var(--color-ink-3); font-weight: 500; }
+  .rs-msg { margin: 0; font-size: 13px; font-weight: 550; color: var(--color-ink-3); overflow-wrap: anywhere; }
+  .rs-msg.is-bad { color: var(--color-bad); }
+  .rs-msg.is-warn { color: var(--color-warn); }
+  .rs-actions { grid-column: 1 / -1; display: flex; gap: 8px; align-items: center; }
+  .rs-actions .btn { flex: 1; height: 44px; padding: 0 14px; gap: 8px; }
+  .rs-remove { flex: none; width: 44px; height: 44px; border: 0; border-radius: 12px; background: rgb(255 255 255 / 0.06); color: var(--color-ink-2); font-size: 22px; line-height: 1; cursor: pointer; }
+  .rs-remove:hover { background: rgb(255 255 255 / 0.12); color: var(--color-ink); }
+  .rs-remove:focus-visible { outline: 2px solid var(--color-accent-ink); outline-offset: 2px; }
+  .rs-file.is-working { opacity: 0.7; }
+  @media (min-width: 640px) {
+    .rs-file { grid-template-columns: 76px minmax(0, 1fr) auto; align-items: center; }
+    .rs-thumb { grid-row: auto; }
+    .rs-actions { grid-column: auto; }
+    .rs-actions .btn { flex: none; }
+  }
+
+  /* Panel fields */
+  .rs-f { display: grid; gap: 8px; min-width: 0; }
+  .rs-dims { display: grid; grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr); gap: 8px; align-items: end; }
+  .rs-lock { width: 44px; height: 50px; display: grid; place-items: center; border: 0; border-radius: 14px; background: rgb(255 255 255 / 0.05); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08); color: var(--color-ink-3); cursor: pointer; transition: background-color 0.15s, color 0.15s; }
+  .rs-lock:hover { background: rgb(255 255 255 / 0.1); }
+  .rs-lock[aria-pressed="true"] { background: var(--color-ink); color: var(--color-bg); box-shadow: none; }
+  .rs-lock:focus-visible { outline: 2px solid var(--color-accent-ink); outline-offset: 2px; }
+  .rs-lock .rs-lock-off { display: none; }
+  .rs-lock[aria-pressed="false"] .rs-lock-on { display: none; }
+  .rs-lock[aria-pressed="false"] .rs-lock-off { display: inline; }
+  .rs-lock span { display: grid; }
+  .rs-tool .field input { font-size: 16px; }
+  .rs-dims .field .suffix { padding: 0 10px 0 0; }
+  .rs-dims .field input { padding: 0 6px 0 12px; }
+  .rs-presets-wrap { display: grid; gap: 10px; margin-top: 6px; }
+  .rs-presets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .rs-chip { flex-direction: column; align-items: flex-start; justify-content: center; height: auto; min-height: 50px; padding: 7px 12px; border-radius: 14px; gap: 0; text-align: left; line-height: 1.25; }
+  .rs-chip b { font-size: 13.5px; font-weight: 650; }
+  .rs-chip span { font-size: 12px; opacity: 0.75; font-weight: 550; }
+  .chips.rs-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .rs-fit span { padding: 10px 6px; }
+  .rs-bg { display: grid; grid-template-columns: 50px minmax(0, 1fr); gap: 10px; align-items: center; }
+  .rs-bg input[type="color"] { width: 50px; height: 50px; padding: 0; border: 0; border-radius: 14px; background: none; cursor: pointer; -webkit-appearance: none; appearance: none; }
+  .rs-bg input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+  .rs-bg input[type="color"]::-webkit-color-swatch { border: 0; border-radius: 14px; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.25); }
+  .rs-bg input[type="color"]::-moz-color-swatch { border: 0; border-radius: 14px; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.25); }
+  .rs-bg input[type="color"]:focus-visible { outline: 2px solid var(--color-accent-ink); outline-offset: 2px; }
+  .rs-bg .field input { text-transform: uppercase; letter-spacing: 0.02em; }
+  .rs-tool .check { min-height: 44px; }
+  .rs-val { font-size: 13px; font-weight: 650; color: var(--color-ink); }
+  .rs-q { display: grid; gap: 4px; }
+  [data-sec][hidden], .rs-q[hidden], .rs-tool [hidden] { display: none !important; }
+
+  /* Slider (same look as the other tools) */
+  .range { -webkit-appearance: none; appearance: none; width: 100%; height: 32px; margin: 0; background: transparent; cursor: pointer; }
+  .range::-webkit-slider-runnable-track { height: 6px; border-radius: 99px; background: rgb(255 255 255 / 0.1); }
+  .range::-moz-range-track { height: 6px; border-radius: 99px; background: rgb(255 255 255 / 0.1); }
+  .range::-moz-range-progress { height: 6px; border-radius: 99px; background: var(--color-accent); }
+  .range::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; margin-top: -9px; border-radius: 99px; background: #fff; border: 0; box-shadow: 0 2px 10px rgb(0 0 0 / 0.5); }
+  .range::-moz-range-thumb { width: 24px; height: 24px; border-radius: 99px; background: #fff; border: 0; box-shadow: 0 2px 10px rgb(0 0 0 / 0.5); }
+  .range:focus-visible { outline: none; }
+  .range:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px rgb(124 108 255 / 0.55); }
+  .range:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 4px rgb(124 108 255 / 0.55); }
+
+  /* Page sections */
+  .rs-how { position: relative; }
+  .rs-num { flex: none; width: 36px; height: 36px; border-radius: 99px; display: grid; place-items: center; font-size: 15px; font-weight: 750; color: #fff; background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2)); box-shadow: 0 6px 16px -6px rgb(109 93 252 / 0.8); }
+  .rs-features { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 640px) { .rs-features { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1000px) { .rs-features { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .rs-feature { padding: 26px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .rs-feature-icon { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; margin-bottom: 6px; color: var(--color-accent-ink); background: var(--color-accent-soft); }
+}
