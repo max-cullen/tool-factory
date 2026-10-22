@@ -1,0 +1,7 @@
+{
+  "name": "Image Cropper",
+  "slug": "image-cropper",
+  "description": "Crop an image with a draggable box or a 1:1, 4:3, 3:2 or 16:9 ratio. Save PNG, JPG or WebP at the original resolution. Works with mouse, touch and keyboard. Nothing is uploaded.",
+  "keywords": ["image cropper", "crop image online", "crop photo", "crop to square", "crop 16:9", "crop image ratio", "crop png", "crop jpg", "profile picture crop"],
+  "category": "Images"
+}
