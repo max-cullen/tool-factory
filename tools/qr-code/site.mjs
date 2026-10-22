@@ -1,6 +1,6 @@
 // QR Code Generator: make Text, URL, Wi-Fi and contact (vCard) QR codes in the browser, download as PNG or SVG.
 // This file holds the pages, copy and tool markup. Layout, header, footer, SEO and styles come from /framework.
-// Design notes and the list of data- hooks: DESIGN-NOTES.md. Strings marked TODO(copy) are placeholders.
+// Design notes and the list of data- hooks: DESIGN-NOTES.md.
 import { ICON, hero, sectionHead, faqHtml, adSlot } from '../../framework/lib.mjs';
 import { privacyPage, termsPage, contactPage, aboutPage } from '../../framework/pages.mjs';
 import config from '../../framework/config.mjs';
@@ -14,13 +14,13 @@ const site = {
   contact: config.contact,
   parent: config.parent,
   operator: config.parent,
-  tagline: 'Make QR codes for text, links, Wi-Fi and contacts, right in your browser.', // TODO(copy)
-  privacySummary: 'What you type into the QR Code Generator stays on your device. The code is made inside your web browser and nothing you enter is sent to us or anyone else. The site shows ads and uses privacy-friendly visitor statistics, explained below.', // TODO(copy)
+  tagline: 'Make QR codes for text, links, Wi-Fi and contacts, right in your browser.',
+  privacySummary: 'What you type into the QR Code Generator stays on your device. The code is made inside your web browser and nothing you enter is sent to us or anyone else. The site shows ads and uses privacy-friendly visitor statistics, explained below.',
   // Ads and analytics stay OFF until the owner fills these in (see README). No ids are kept in this file.
   ads: { client: '', slots: { 'below-tool': '', mid: '', 'rail-left': '', 'rail-right': '' } },
   analytics: { cloudflareToken: '' },
-  footnote: 'Built to make things simpler.',
-  footnote2: 'Codes are made on your device and never expire.',
+  footnote: 'Codes are made on your device and never expire.',
+  footnote2: 'QR Code is a registered trademark of Denso Wave Incorporated. This site is independent and not affiliated with Denso Wave.',
   mark: '<rect x="3.5" y="3.5" width="6" height="6" rx="1.2"/><rect x="14.5" y="3.5" width="6" height="6" rx="1.2"/><rect x="3.5" y="14.5" width="6" height="6" rx="1.2"/><path d="M14.5 14.5h2.5v2.5M20.5 14.5v.01M14.5 20.5h.01M18 20.5h2.5V18"/>',
   nav: [{ id: 'home', label: 'How it works', hash: '#how' }, { id: 'about', label: 'About' }],
   cta: (page) => page.tool,
@@ -29,39 +29,47 @@ const site = {
   ],
 };
 
-/* ---------- placeholder copy: every string here is TODO(copy), to be rewritten by the copy pass ---------- */
+/* ---------- page copy ---------- */
 const COPY = {
-  h1: 'Free QR code generator', // TODO(copy)
-  lead: 'Turn text, a link, your Wi-Fi details or a contact card into a QR code. It is made in your browser and works forever.', // TODO(copy)
-  trust: ['Codes never expire', 'Made in your browser', 'Free, no sign-up'], // TODO(copy)
-  how: [ // TODO(copy)
-    ['Pick what to share', 'TODO(copy): choose Text, URL, Wi-Fi or Contact and fill in the form.'],
-    ['Style it', 'TODO(copy): colours, size, margin and error correction.'],
-    ['Download', 'TODO(copy): save a PNG for screens or an SVG for print.'],
+  h1: 'Free QR code generator',
+  lead: 'Make a QR code for text, a web link, your Wi-Fi network or a contact card. Choose the colours, then download a PNG or SVG. It is made in your browser, so nothing you type leaves your device.',
+  trust: ['Codes never expire', 'Made in your browser', 'Free, no sign-up'],
+  how: [
+    ['Choose what it holds', 'Pick Text, URL, Wi-Fi or Contact and fill in the form. The code redraws as you type, and the form tells you if something is missing or too long.'],
+    ['Style it', 'Set the dot and background colours, the image size, the blank margin and the error-correction level. A contrast check warns you if the colours might not scan.'],
+    ['Download', 'Save a PNG for screens and documents, or an SVG that stays sharp at any size for print. Then scan it with a phone before you share it.'],
   ],
-  kinds: [ // TODO(copy)
-    ['text', 'Text', 'TODO(copy): a note, a code or a short message.'],
-    ['url', 'URL', 'TODO(copy): open a website, menu or form.'],
-    ['wifi', 'Wi-Fi', 'TODO(copy): guests join your network without typing the password.'],
-    ['vcard', 'Contact', 'TODO(copy): save your name, phone and email in one scan.'],
+  kinds: [
+    ['text', 'Text', 'A note, a serial number or a short message that shows on the scanner screen.'],
+    ['url', 'URL', 'Send people to a website, menu, booking form or map. A missing https:// is added for you.'],
+    ['wifi', 'Wi-Fi', 'Let guests join your network without typing the password.'],
+    ['vcard', 'Contact', 'Share a name, phone, email, organisation and address that can be saved as a contact.'],
   ],
-  aboutTitle: 'Making a QR code that scans first time', // TODO(copy)
-  aboutParas: [ // TODO(copy): the main 300+ word content section goes here
-    'TODO(copy): what a QR code is, and why a static code made here never expires.',
-    'TODO(copy): when to use PNG and when to use SVG, and how big to print.',
+  kindsTitle: 'Four kinds of code',
+  aboutTitle: 'Making a QR code that scans first time',
+  aboutParas: [
+    'A QR code is a square pattern of dots that stores a small amount of data, usually text. A phone camera reads the pattern and decides what to do with it: open a web page, offer to join a Wi-Fi network or add a contact. This tool makes static codes. What you enter is written straight into the pattern, so the code does not depend on any website or account to keep working. It never expires, and it keeps scanning for as long as the image stays readable.',
+    'That is different from the dynamic codes some paid services sell. A dynamic code holds a short link to the provider&rsquo;s server, which forwards people to your real page. That lets you change the destination later and count scans, but the code stops working if you stop paying or the service closes. If you need a code that points to a fixed address, static is simpler and permanent. If the destination might change, point the code at a page on your own site that you can update.',
+    'The more you put in, the more dots the code needs, and denser codes are harder to scan when printed small. Keep the content short where you can: a short link is much easier to scan than a long one. The Data used bar under the preview shows how close you are to the largest code this tool can make.',
+    'For screens, download the PNG. For anything printed, choose the SVG, a vector file that scales without blur. As a rough guide, print a code no smaller than about 2 centimetres square for close-up scanning, and make it larger the further away it will be read. Always test the printed result with two different phones before you print a batch.',
   ],
-  tipsTitle: 'Tips for reliable scanning', // TODO(copy)
-  tips: [ // TODO(copy)
-    'TODO(copy): keep strong contrast, dark dots on a light background.',
-    'TODO(copy): leave the quiet zone (margin) around the code.',
-    'TODO(copy): test with two phones before printing.',
+  tipsTitle: 'Tips for reliable scanning',
+  tips: [
+    'Use dark dots on a light background. Light dots on a dark background fail on some scanners.',
+    'Keep the margin at 4 modules or more. Cropping the blank border can stop a code from scanning.',
+    'Choose a higher error-correction level for print that may be scuffed, dirty or partly covered.',
+    'Scan the finished code with two phones before you print or publish it.',
   ],
-  faq: [ // TODO(copy): 5+ questions
-    ['Do these QR codes expire?', 'TODO(copy)'],
-    ['Is what I type uploaded anywhere?', 'TODO(copy)'],
-    ['Should I download PNG or SVG?', 'TODO(copy)'],
-    ['What does error correction do?', 'TODO(copy)'],
-    ['Can I change the colours?', 'TODO(copy)'],
+  faq: [
+    ['Do these QR codes expire?', 'No. These are static codes: the data sits in the pattern itself, with no tracking link and no account behind it. A code made here keeps working for as long as the printed or displayed image stays readable. The only thing that can break it is a destination you do not control going away, such as a website that is taken offline.'],
+    ['Is what I type uploaded anywhere?', 'No. The code is generated by JavaScript running in your browser. Nothing you type, including Wi-Fi passwords and contact details, is sent to us or to any other server, and nothing is kept after you close the page. The page itself shows ads and counts visits separately; the Privacy page explains how.'],
+    ['What is the difference between static and dynamic codes?', 'A static code stores your data directly. A dynamic code stores a link to a service, which redirects to your destination so it can be edited and tracked. This tool makes static codes only. That means no scan statistics and no editing after printing, but also no subscription and no risk of the code being switched off.'],
+    ['Which error-correction level should I choose?', 'Error correction lets a scanner rebuild the code when part of it is damaged or covered. L recovers about 7%, M about 15%, Q about 25% and H about 30%. Higher levels add dots, so the code gets denser and harder to scan at a small size. M suits most uses. Choose Q or H for stickers, outdoor signs or anything likely to be scuffed, and L for long content on a clean screen. If your content is too long, a lower level fits more.'],
+    ['Should I download PNG or SVG?', 'PNG is a pixel image, suited to websites, slides, messages and documents. SVG is a vector file that stays sharp at any size, so it is the better choice for posters, signs and print shops. If you use a PNG, set the size so each dot is several pixels wide.'],
+    ['How big should I print it?', 'About 2 cm by 2 cm is a practical minimum for a code held close, such as on a business card. For posters, a common rule of thumb is a code about one tenth as wide as the scanning distance. Dense codes (long content, higher error correction) need more room than simple ones. Print a test and scan it from the real distance.'],
+    ['Is it safe to put my Wi-Fi password in a QR code?', 'The code holds your network name and password as plain text, so anyone who can scan or photograph it can join your network and read the password out of it. Treat the printed code like the password itself. For guests or customers, share a guest network instead, and change the password if the code has gone further than you meant.'],
+    ['Why will my printed code not scan?', 'Check contrast first. Dark dots on a light background work best. Low contrast, light dots on a dark background or a busy picture behind the code can stop it scanning even when it looks fine on screen. Also check that the margin has not been trimmed, the code is not stretched, and it is not printed too small or covered in glare. The message under the colour pickers warns you about weak combinations.'],
+    ['Does the Contact code work on every phone?', 'It uses the vCard 3.0 format, which current iPhone and Android cameras recognise. How each phone offers to save the contact varies, and some older scanner apps only show the raw text. Keep the details short for the most reliable result.'],
   ],
 };
 
@@ -122,7 +130,7 @@ function toolHtml() {
     </form>
 
     <form ${formAttrs('url', 1)}>
-      ${f({ id: 'qr-url', label: 'Website address', attrs: 'name="url" type="url" inputmode="url" spellcheck="false" autocapitalize="off" data-field="url" placeholder="https://example.com"', hint: 'If you leave out https://, it is added for you.' /* TODO(copy) */ })}
+      ${f({ id: 'qr-url', label: 'Website address', attrs: 'name="url" type="url" inputmode="url" spellcheck="false" autocapitalize="off" data-field="url" placeholder="https://example.com"', hint: 'If you leave out https://, it is added for you.' })}
     </form>
 
     <form ${formAttrs('wifi', 2)}>
@@ -135,7 +143,7 @@ function toolHtml() {
         </div>
         <p class="hint" data-wifi-hint>WPA covers WPA2 and WPA3, used by almost every home and office network.</p>
       </div>
-      ${f({ id: 'qr-pass', label: 'Password', attrs: 'name="password" type="password" spellcheck="false" autocapitalize="off" autocomplete="off" data-field="password" placeholder="Network password"', extra: `<button type="button" class="qr-eye" data-pw-toggle aria-pressed="false" aria-label="Show password" aria-controls="qr-pass">${I.eye}</button>` })}
+      ${f({ id: 'qr-pass', label: 'Password', hint: 'Anyone who scans this code can read the password. Share it only where you would share the password.', attrs: 'name="password" type="password" spellcheck="false" autocapitalize="off" autocomplete="off" data-field="password" placeholder="Network password"', extra: `<button type="button" class="qr-eye" data-pw-toggle aria-pressed="false" aria-label="Show password" aria-controls="qr-pass">${I.eye}</button>` })}
       <label class="check"><input type="checkbox" name="hidden" data-field="hidden"><span>Hidden network (it does not broadcast its name)</span></label>
     </form>
 
@@ -248,7 +256,7 @@ ${adSlot(ctx, 'below-tool')}
 </section>
 
 <section class="wrap mt-32">
-  ${sectionHead('Four kinds of code', '', 'text-4xl md:text-5xl') /* TODO(copy) */}
+  ${sectionHead(COPY.kindsTitle, '', 'text-4xl md:text-5xl')}
   ${kindCards(COPY.kinds)}
 </section>
 
@@ -264,18 +272,25 @@ ${adSlot(ctx, 'mid')}
 </section>
 </main>`;
   return {
-    title: 'Free QR Code Generator: Text, URL, Wi-Fi and Contact (No Sign-up)', // TODO(copy)
-    desc: 'Make a QR code for text, a link, Wi-Fi or a contact card. Pick colours and size, download PNG or SVG. Made in your browser, never expires.', // TODO(copy)
+    title: 'Free QR Code Generator: Text, URL, Wi-Fi and Contact (No Sign-up)',
+    desc: 'Make a QR code for text, a link, Wi-Fi or a contact card. Pick colours and size, download PNG or SVG. Made in your browser, never expires.',
     body, faq: COPY.faq, tool: { category: 'UtilitiesApplication' }, scripts: ['assets/tool.js'],
   };
 }
 
 const pages = [
   { id: 'home', slug: '', tool: true, render: home },
-  { id: 'about', slug: 'about', render: (ctx) => aboutPage(ctx, { html: '<p>TODO(copy): why this tool exists and how it works.</p>' }) },
-  { id: 'privacy', slug: 'privacy', render: (ctx) => privacyPage(ctx, { updated: UPDATED, dataTitle: 'What you type', dataHtml: '<p>TODO(copy): the text, links, Wi-Fi details and contact details you enter are turned into a QR code inside your browser. They are never sent to a server.</p>' }) },
-  { id: 'terms', slug: 'terms', render: (ctx) => termsPage(ctx, { updated: UPDATED, whatItIs: `${site.name} is a free tool for making QR codes in your browser.`, ownershipHtml: '<p>TODO(copy): you own what you enter and the codes you make.</p>', processingHtml: '<p>TODO(copy): codes are made locally in the browser; nothing is kept.</p>', responsibilityHtml: '<p>TODO(copy): test every code before printing or sharing it.</p>' }) },
+  { id: 'about', slug: 'about', render: (ctx) => aboutPage(ctx, { html: `<p>${site.name} is a small, free tool for making QR codes that you can print or share. It was built because most online generators ask you to sign up, add a watermark or send your details to a server just to draw a square of dots.</p>
+<p>Here, the code is drawn by a QR encoder that runs inside your web browser. It handles plain text, web links, Wi-Fi network details and contact cards, and it lets you choose colours, size, margin and error-correction level before you download a PNG or SVG. The encoder follows the published QR Code specification, and its output was cross-checked by decoding sample codes with independent scanner software.</p>
+<p>The codes are static, which means they carry your content directly and never expire. We do not track scans, because there is nothing in the code that goes through our servers.</p>
+<p>${site.name} is made by ${site.operator}, in Brisbane, Australia. The site is paid for by advertising. If you find a problem or have an idea, use the Contact page.</p>
+<p><small>QR Code is a registered trademark of Denso Wave Incorporated. This site is independent and is not affiliated with or endorsed by Denso Wave.</small></p>` }) },
+  { id: 'privacy', slug: 'privacy', render: (ctx) => privacyPage(ctx, { updated: UPDATED, dataTitle: 'What you type', dataHtml: '<p>The text, links, Wi-Fi details and contact details you enter are turned into a QR code inside your web browser. They are not sent to a server, not stored on one and not shared with anyone. Nothing is saved in cookies or in your browser after you leave the page.</p><p>When you download a PNG or SVG, the file is created on your device and saved to your downloads folder. It does not pass through us.</p>' }) },
+  { id: 'terms', slug: 'terms', render: (ctx) => termsPage(ctx, { updated: UPDATED, whatItIs: `${site.name} is a free tool for making QR codes in your browser.`, ownershipHtml: '<p>You own what you enter and the codes you make. We claim no rights over them, and you may use them for personal or business purposes without attribution.</p>', processingHtml: '<p>Codes are made on your device, in your browser. We do not receive, keep or look at what you enter.</p>', responsibilityHtml: '<p>Test every code with at least one phone before you print or share it. Scanning depends on the printed quality, the colours, the size and the scanner, which we cannot control. You are responsible for what your code contains and for having the right to share it, including any Wi-Fi password, which anyone with the code can read.</p><p>QR Code is a registered trademark of Denso Wave Incorporated. This site is not affiliated with Denso Wave.</p>' }) },
   { id: 'contact', slug: 'contact', render: (ctx) => contactPage(ctx, { lead: 'Found a bug or have an idea? Email us.' }) },
 ];
 
-export default { site, pages, copy: [['src/tool.js', 'assets/tool.js']] };
+export default {
+  site, pages,
+  copy: [['src/tool.js', 'assets/tool.js'], ['src/qr.mjs', 'assets/qr.mjs'], ['src/payloads.mjs', 'assets/payloads.mjs'], ['src/render.mjs', 'assets/render.mjs'], ['src/contrast.mjs', 'assets/contrast.mjs']],
+};
