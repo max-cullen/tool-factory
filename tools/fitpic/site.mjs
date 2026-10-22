@@ -231,6 +231,11 @@ ${adSlot(ctx, 'below-tool')}
   </div>
 </section>
 
+<section class="wrap mt-32">
+  ${sectionHead('How it works')}
+  ${howCards([['Choose a photo', 'Drop it in, paste it, or pick it from your device.'], ['Set the limit', 'Type a size in KB or MB, or exact pixels. Add a minimum size if the form has one.'], ['Download', 'Compare before and after, then save the file.']])}
+</section>
+
 <section id="sizes" class="wrap mt-32 scroll-mt-20">
   ${sectionHead('Popular sizes', 'Jump straight to the limit your form asks for.')}
   ${sizeTiles(ctx, page)}
