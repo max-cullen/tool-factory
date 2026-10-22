@@ -190,7 +190,7 @@ ${adSlot(ctx, 'mid')}
   ${faqHtml(FAQ_BASE)}
 </section>
 </main>`;
-  return { title: 'Resize video for Instagram Reels (9:16), free and private | FitReel', desc: 'Make any video Reel-ready: 1080 × 1920 MP4, location removed, cover picked, trim and split screen. Free, no sign-up, and nothing is uploaded.', body, faq: FAQ_BASE, tool: TOOL_META, scripts: SCRIPTS };
+  return { title: 'Resize Video for Instagram Reels (9:16), Free and Private | FitReel', desc: 'Make any video Reel-ready: 1080 × 1920 MP4, location removed, cover picked, trim and split screen. Free, no sign-up, and nothing is uploaded.', body, faq: FAQ_BASE, tool: TOOL_META, scripts: SCRIPTS };
 }
 
 function ratioPage(ctx) {
@@ -214,7 +214,7 @@ ${adSlot(ctx, 'below-tool')}
 ${adSlot(ctx, 'mid')}
 <section class="wrap wrap-narrow mt-32">${sectionHead('Questions', '', 'text-4xl md:text-5xl')}${faqHtml(faq)}</section>
 </main>`;
-  return { title: 'Convert video to 9:16 online (free, no upload) | FitReel', desc: lead, body, faq, tool: TOOL_META, scripts: SCRIPTS };
+  return { title: 'Convert Video to 9:16 Online (Free, No Upload) | FitReel', desc: lead, body, faq, tool: TOOL_META, scripts: SCRIPTS };
 }
 
 function splitPage(ctx) {
@@ -240,7 +240,7 @@ ${adSlot(ctx, 'below-tool')}
 ${adSlot(ctx, 'mid')}
 <section class="wrap wrap-narrow mt-32">${sectionHead('Questions', '', 'text-4xl md:text-5xl')}${faqHtml(faq)}</section>
 </main>`;
-  return { title: 'Split screen video maker for Reels (free, no upload) | FitReel', desc: lead, body, faq, tool: TOOL_META, scripts: SCRIPTS };
+  return { title: 'Split Screen Video Maker for Reels (Free, No Upload) | FitReel', desc: lead, body, faq, tool: TOOL_META, scripts: SCRIPTS };
 }
 
 function metaPage(ctx) {
@@ -264,7 +264,7 @@ ${adSlot(ctx, 'below-tool')}
 ${adSlot(ctx, 'mid')}
 <section class="wrap wrap-narrow mt-32">${sectionHead('Questions', '', 'text-4xl md:text-5xl')}${faqHtml(faq)}</section>
 </main>`;
-  return { title: 'Remove location and metadata from a video (free, no upload) | FitReel', desc: lead, body, faq, tool: TOOL_META, scripts: SCRIPTS };
+  return { title: 'Remove Location and Metadata From a Video (Free, No Upload) | FitReel', desc: lead, body, faq, tool: TOOL_META, scripts: SCRIPTS };
 }
 
 /* ---------- text pages ---------- */

@@ -2,3 +2,4 @@ node_modules/
 tools/*/dist/
 tools/*/test/fixtures/
 framework/fonts.css
+.DS_Store

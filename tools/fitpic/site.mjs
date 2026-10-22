@@ -242,7 +242,7 @@ ${adSlot(ctx, 'mid')}
   ${faqHtml(FAQ_BASE)}
 </section>
 </main>`;
-  return { title: `${site.name}: compress or resize a photo to an exact size`, desc: 'Compress a photo to an exact file size in KB or resize it to exact pixels. Free and private: it runs in your browser and nothing is uploaded.', body, faq: FAQ_BASE, tool: { category: 'MultimediaApplication' }, scripts: SCRIPTS };
+  return { title: `${site.name}: Compress or Resize a Photo to an Exact Size`, desc: 'Compress a photo to an exact file size in KB or resize it to exact pixels. Free and private: it runs in your browser and nothing is uploaded.', body, faq: FAQ_BASE, tool: { category: 'MultimediaApplication' }, scripts: SCRIPTS };
 }
 
 function preset(ctx, page) {
@@ -276,7 +276,7 @@ ${adSlot(ctx, 'mid')}
   ${sizeTiles(ctx, page, s.kb)}
 </section>
 </main>`;
-  return { title: `Compress image to ${s.label} online (free, no upload)`, desc: s.lead, body, faq, tool: { category: 'MultimediaApplication' }, scripts: SCRIPTS };
+  return { title: `Compress Image to ${s.label} Online (Free, No Upload)`, desc: s.lead, body, faq, tool: { category: 'MultimediaApplication' }, scripts: SCRIPTS };
 }
 
 function kbPage(ctx, page) {
@@ -314,7 +314,7 @@ ${adSlot(ctx, 'mid')}
   ${sizeTiles(ctx, page)}
 </section>
 </main>`;
-  return { title: 'Reduce image size in KB online (free, no upload)', desc: lead, body, faq, tool: { category: 'MultimediaApplication' }, scripts: SCRIPTS };
+  return { title: 'Reduce Image Size in KB Online (Free, No Upload)', desc: lead, body, faq, tool: { category: 'MultimediaApplication' }, scripts: SCRIPTS };
 }
 
 function pxPage(ctx, page) {
@@ -354,7 +354,7 @@ ${adSlot(ctx, 'mid')}
   ${sizeTiles(ctx, page)}
 </section>
 </main>`;
-  return { title: 'Resize image to exact pixels online (free, no upload)', desc: lead, body, faq, tool: { category: 'MultimediaApplication' }, scripts: SCRIPTS };
+  return { title: 'Resize Image to Exact Pixels Online (Free, No Upload)', desc: lead, body, faq, tool: { category: 'MultimediaApplication' }, scripts: SCRIPTS };
 }
 
 /* ---------- text pages (framework templates + Fitpic specifics; owner has them reviewed before launch) ---------- */
