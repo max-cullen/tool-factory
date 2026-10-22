@@ -50,7 +50,7 @@ class ReelTool {
       framingHint: '[data-framing-hint]', posWrap: '[data-pos-wrap]', pos: '[data-pos]', posLabel: '[data-pos-label]', posMain: '[data-pos-main]', pos2: '[data-pos2]',
       clip2Empty: '[data-clip2-empty]', clip2: '[data-clip2]', name2: '[data-name2]', swap: '[data-swap]', swapLabel: '[data-swap-label]',
       trimA: '[data-trim-a]', trimB: '[data-trim-b]', trimLabel: '[data-trim-label]', dualFill: '[data-dual-fill]', cover: '[data-cover]', coverLabel: '[data-cover-label]',
-      strip: '[data-strip]', safeOn: '[data-safe-on]', dlUnder: '[data-download-under]',
+      strip: '[data-strip]', safeOn: '[data-safe-on]', dlUnder: '[data-download-under]', add2: '[data-add2]',
     }).map(([k, sel]) => [k, $(root, sel)]));
     this.scheduleRender = debounce(() => this.render(), RENDER_DELAY_MS);
     const support = browserSupport();
@@ -123,6 +123,7 @@ class ReelTool {
       saveFile(this.result.blob, suggestName(this.main.file.name, 'mp4', 'reel'));
     });
     el.dlUnder.addEventListener('click', () => el.dl.click());
+    el.add2.addEventListener('click', () => el.file2.click());
     el.coverDl.addEventListener('click', async () => {
       if (!this.main) return;
       el.coverDl.disabled = true;
@@ -212,6 +213,8 @@ class ReelTool {
       el.coverLabel.textContent = `${s.cover == null ? 'Auto, ' : ''}${formatTime(this.coverTime())}`;
     } else { el.trimLabel.textContent = ''; el.coverLabel.textContent = 'Auto'; }
     el.coverDl.disabled = !this.main || (split && !this.second);
+    el.add2.hidden = !(this.main && split && !this.second);
+    el.add2.classList.toggle('is-top', !!s.swap);
     el.choose.textContent = this.main ? 'Choose another video' : 'Choose a video';
   }
 
@@ -306,8 +309,6 @@ class ReelTool {
       const g = c.getContext('2d');
       const y = this.s.swap ? 0 : c.height / 2;
       g.fillStyle = '#120d1f'; g.fillRect(0, y, c.width, c.height / 2);
-      g.fillStyle = '#b9b0d6'; g.font = '600 26px "Plus Jakarta Sans Variable", system-ui, sans-serif'; g.textAlign = 'center';
-      g.fillText('Add a second clip', c.width / 2, y + c.height / 4 + 9);
     }
   }
 

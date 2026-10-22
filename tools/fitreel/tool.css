@@ -93,6 +93,11 @@
   .chip svg { margin-right: 6px; }
   .self-start { justify-self: start; }
   .bento figure svg { max-height: 200px; }
+  .add2 { position: absolute; left: 0; right: 0; bottom: 0; height: 50%; display: grid; place-content: center; justify-items: center; gap: 6px; border: 0; cursor: pointer; font: inherit; font-size: 17px; font-weight: 700; color: #fff; background: rgb(18 13 31 / 0.92); box-shadow: inset 0 0 0 2px rgb(225 48 108 / 0.0); transition: background-color 0.2s, box-shadow 0.2s; }
+  .add2.is-top { top: 0; bottom: auto; }
+  .add2:hover, .add2:focus-visible { background: rgb(40 20 50 / 0.95); box-shadow: inset 0 0 0 2px rgb(225 48 108 / 0.7); outline: none; }
+  .add2-icon { width: 48px; height: 48px; border-radius: 16px; display: grid; place-items: center; background: var(--reel-grad); box-shadow: 0 10px 26px -10px rgb(225 48 108 / 0.8); margin-bottom: 4px; }
+  .add2-sub { font-size: 13px; font-weight: 500; color: var(--color-ink-3); }
   .note-info { background: #241c3d; color: #cfc4ff; }
   .dl-under { width: 100%; margin-top: 16px; height: 54px; font-size: 16px; }
   @media (min-width: 920px) { .dl-under { display: none !important; } }

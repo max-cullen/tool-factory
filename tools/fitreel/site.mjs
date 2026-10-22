@@ -64,6 +64,7 @@ function toolHtml({ layout = 'single', framing = 'blur' } = {}) {
         <canvas width="540" height="960" data-canvas aria-label="Preview of the Reel"></canvas>
         <video data-video playsinline muted loop controls hidden aria-label="Finished Reel"></video>
         <div class="safe" data-safe hidden aria-hidden="true"><i class="safe-top"></i><i class="safe-right"></i><i class="safe-bottom"></i><span>Areas the app covers with buttons and captions (approximate)</span></div>
+        <button type="button" class="add2" data-add2 hidden><span class="add2-icon">${PLUS}</span>Add a second clip<span class="add2-sub">Tap to choose, or drop it here</span></button>
         <div class="render-veil" data-veil hidden><div class="render-box"><span class="render-pct num" data-pct>0%</span><span class="render-what">Making your Reel</span><div class="bar"><i data-pbar></i></div><button type="button" class="link-btn !m-0" data-cancel>Cancel</button></div></div>
       </div>
     </div>
@@ -167,7 +168,7 @@ const SPLIT = `<svg viewBox="0 0 300 150" class="h-auto w-full" role="img" aria-
 /* ---------- pages ---------- */
 function home(ctx, page) {
   const body = `<main id="main">
-${hero({ h1: 'Get your video Reel-ready.', lead: 'Drop in a video and get a 1080 &times; 1920 MP4 with the location removed and a cover picked. It all happens in your browser, so your video is never uploaded.', trustItems: TRUST, after: toolHtml() })}
+${hero({ h1: 'Get your video Reel-ready.', lead: 'Upload a video, clean its metadata, add a second clip and get it ready for Reels in seconds. It all runs in your browser, so nothing is uploaded.', trustItems: TRUST, after: toolHtml() })}
 ${adSlot(ctx, 'below-tool')}
 <section class="wrap mt-32">
   ${sectionHead('One stop before you post', 'The file prep that usually takes three apps, done in one place without an account.')}
