@@ -39,7 +39,7 @@ ${dataHtml}
 <p>${site.name} is a general-audience tool and is not directed at children under 13. We do not knowingly collect personal information from children.</p>
 <h2>Changes</h2>
 <p>If this policy changes, we will update this page and the date above.</p>`;
-  return { title: `Privacy policy | ${site.name}`, desc: `How ${site.name} handles your data, analytics and ads.`, body: textPage({ h1: 'Privacy policy', updated, html }) };
+  return { title: `Privacy Policy | ${site.name}`, desc: `How ${site.name} handles your data, analytics and ads.`, body: textPage({ h1: 'Privacy policy', updated, html }) };
 }
 
 /**
@@ -75,7 +75,7 @@ ${noAdvice ? `<h2>Not advice</h2><p>${noAdvice}</p>` : ''}
 <p>We may update these terms by changing this page and its date. Using the site after a change means you accept the updated terms. These terms are governed by the laws of Queensland, Australia, and the courts of Queensland have non-exclusive jurisdiction.</p>
 <h2>Contact</h2>
 <p>Email <strong>${esc(site.contact)}</strong>.</p>`;
-  return { title: `Terms of use | ${site.name}`, desc: `The terms for using ${site.name}.`, body: textPage({ h1: 'Terms of use', updated, html }) };
+  return { title: `Terms of Use | ${site.name}`, desc: `The terms for using ${site.name}.`, body: textPage({ h1: 'Terms of use', updated, html }) };
 }
 
 export function contactPage(ctx, { lead, extraHtml = '' }) {

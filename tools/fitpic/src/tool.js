@@ -32,15 +32,25 @@ async function makeSampleFile() {
   return new File([await res.blob()], 'example-photo.jpg', { type: 'image/jpeg' });
 }
 
+const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
 async function saveFile(blob, name) {
   try {
     const d = window.claude?.use ? await window.claude.use('downloads') : null;
     if (d) { await d.save({ filename: name, data: blob }); return; }
   } catch (e) { if (e && e.code === 'declined') return; }
+  // iPhone/iPad: the share sheet offers "Save Image" (to Photos) and "Save to Files", which is what people expect there.
+  if (IS_IOS && navigator.canShare) {
+    const file = new File([blob], name, { type: blob.type });
+    if (navigator.canShare({ files: [file] })) {
+      try { await navigator.share({ files: [file] }); return; } catch (e) { if (e?.name === 'AbortError') return; }
+    }
+  }
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url; a.download = name; document.body.appendChild(a); a.click();
-  setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 4000);
+  a.href = url; a.download = name; a.rel = 'noopener'; document.body.appendChild(a); a.click();
+  // Keep the file available for a while: phones often ask "Download?" first, and the link must still work when tapped.
+  setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 120000);
 }
 
 function tween(el, to, from) {
