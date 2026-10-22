@@ -1,7 +1,7 @@
 {
   "name": "Username Generator",
   "slug": "name-generator",
-  "description": "Make usernames and gamer tags in fantasy, sci-fi, cute, edgy and gamer styles, set the length and format, and copy in one tap.",
-  "keywords": ["username generator", "gamer tag generator", "fantasy name generator", "random username"],
+  "description": "Make usernames and gamer tags in fantasy, sci-fi, cute, edgy and gamer styles. Set length, capitals, separators and numbers, save favourites and copy in one tap. Runs in your browser.",
+  "keywords": ["username generator", "gamer tag generator", "fantasy name generator", "random username", "sci-fi names", "cute usernames"],
   "category": "Text"
 }

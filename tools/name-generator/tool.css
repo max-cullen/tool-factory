@@ -104,3 +104,5 @@
 /* While generating, the spinner takes the place of the More button so the header never squashes. */
 .ng-head:has(.ng-busy:not([hidden])) .ng-again { display: none; }
 @media (max-width: 919px) { .ng-empty { min-height: 240px; } .ng-empty .drop-title { font-size: 20px; } }
+/* The hidden attribute must win over component display rules (favourite actions, empty states). */
+.ng-tool [hidden] { display: none !important; }

@@ -1,5 +1,5 @@
 // Username Generator: makes usernames and gamer tags in several styles, in the browser.
-// Pilot layout for the text-tool pattern: see DESIGN-NOTES.md. Copy marked TODO(copy) is placeholder text.
+// Pilot layout for the text-tool pattern: see DESIGN-NOTES.md.
 import { ICON, esc, hero, sectionHead, faqHtml, adSlot } from '../../framework/lib.mjs';
 import { privacyPage, termsPage, contactPage, aboutPage } from '../../framework/pages.mjs';
 import config from '../../framework/config.mjs';
@@ -15,8 +15,8 @@ const site = {
   operator: config.parent,
   // An "@" mark for the logo and favicon.
   mark: '<circle cx="12" cy="12" r="3.6"/><path d="M15.6 12v1.6a2.6 2.6 0 0 0 5.2 0V12a8.8 8.8 0 1 0-3.4 6.9"/>',
-  tagline: 'Usernames and gamer tags in seconds. Everything runs in your browser.', // TODO(copy)
-  privacySummary: 'The names you make are created inside your web browser. What you type and the names you save are not sent to us or anyone else, and they are gone when you close the page. The site shows ads and uses privacy-friendly visitor statistics, explained below.', // TODO(copy)
+  tagline: 'Usernames and gamer tags in seconds. Everything runs in your browser.',
+  privacySummary: 'The names you make are created inside your web browser. The word you type and the names you save are not sent to us or anyone else, and they are gone when you close the page. The site may show ads and may count visits without cookies, as explained below.',
   // Ads and analytics stay OFF until the owner fills these in. No ids are kept in this file.
   ads: { client: '', slots: { 'below-tool': '', mid: '', 'rail-left': '', 'rail-right': '' } },
   analytics: { cloudflareToken: '' },
@@ -31,19 +31,19 @@ const site = {
 
 /* ---------- styles (categories). `eg` is the small example on the chooser; `samples` show in the Styles section ---------- */
 const CATEGORIES = [
-  { id: 'fantasy', label: 'Fantasy', eg: 'Thornwyn', samples: ['Elvaris', 'Duskmere', 'Wyrmgard'], blurb: 'TODO(copy): old-world sounds, made-up places and a touch of myth. Suits RPGs and guild names.' },
-  { id: 'scifi', label: 'Sci-fi', eg: 'NovaKade', samples: ['Voidrunner', 'Zentrix', 'Kepler9'], blurb: 'TODO(copy): sharp consonants, star systems and ship-style call signs.' },
-  { id: 'cute', label: 'Cute', eg: 'HoneyFern', samples: ['Mochibean', 'Dewdrop', 'Pebblewick'], blurb: 'TODO(copy): soft, friendly words that read well on social profiles and cosy games.' },
-  { id: 'edgy', label: 'Edgy', eg: 'Grimshard', samples: ['Hexfall', 'Nightrend', 'Ravenbyte'], blurb: 'TODO(copy): darker words with a hard edge, for when you want to sound a little dangerous.' },
-  { id: 'gamer', label: 'Gamer tag', eg: 'Kr4kenRx', samples: ['xFrostbite', 'SnipeVolt', 'Ph4ntomRx'], blurb: 'TODO(copy): short, punchy tags with the number and letter swaps people expect in lobbies.' },
-  { id: 'mix', label: 'Mix', eg: 'Any style', samples: ['AshNova', 'Vexwyn', 'LunaHex'], blurb: 'TODO(copy): a bit of everything, when you are not sure what you want yet.' },
+  { id: 'fantasy', label: 'Fantasy', eg: 'Thornwyn', samples: ['Elvaris', 'Duskmere', 'Wyrmgard'], blurb: 'Old-world sounds built from woodland, weather and river words. Suits role-playing games, guild names and storytelling characters.' },
+  { id: 'scifi', label: 'Sci-fi', eg: 'NovaKade', samples: ['Voidrunner', 'Zentrix', 'Kepler9'], blurb: 'Sharp consonants, star names and ship-style call signs. A good fit for space games, shooters and anything with a bit of chrome.' },
+  { id: 'cute', label: 'Cute', eg: 'HoneyFern', samples: ['Mochibean', 'Dewdrop', 'Pebblewick'], blurb: 'Soft, friendly words from the kitchen, garden and meadow. Easy to read on social profiles and in relaxed, cosy games.' },
+  { id: 'edgy', label: 'Edgy', eg: 'Grimshard', samples: ['Hexfall', 'Nightrend', 'Ravenbyte'], blurb: 'Darker words with a hard edge, such as ash, thorn and hex, for a name that sounds a little mysterious. Nothing graphic or hateful.' },
+  { id: 'gamer', label: 'Gamer tag', eg: 'Kr4kenRx', samples: ['xFrostbite', 'SnipeVolt', 'Ph4ntomRx'], blurb: 'Short, punchy tags that borrow from lobby chat, with the odd number-for-letter swap like 3 for E. Quick to type on a controller.' },
+  { id: 'mix', label: 'Mix', eg: 'Any style', samples: ['AshNova', 'Vexwyn', 'LunaHex'], blurb: 'A bit of everything. Each name pulls its parts from different styles, which is handy when you are not sure what you want yet.' },
 ];
 
 // Static sample results so the layout can be judged. The logic replaces them (they carry data-sample).
 const SAMPLE_RESULTS = ['Thornwyn', 'Elvaris', 'Mirelock', 'Ashveil', 'Duskmere', 'Sylvaran', 'Oakhollow', 'Wyrmgard', 'Faelith', 'Ravenmoor', 'Lunebrook', 'Emberlyn'];
 const SAMPLE_FAVS = ['Mirelock', 'Duskmere'];
 
-const TRUST = ['Free, no sign-up', 'Runs in your browser', 'Nothing is saved']; // TODO(copy)
+const TRUST = ['Free, no sign-up', 'Runs in your browser', 'Nothing is saved'];
 
 /* ---------- icons ---------- */
 const svg = (d, size = 18, extra = '') => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"${extra}>${d}</svg>`;
@@ -151,31 +151,36 @@ const toolHtml = () => `<section id="tool" class="tool ng-tool" data-tool aria-l
   </div>
 </section>`;
 
-/* ---------- copy (all placeholder, TODO(copy)) ---------- */
+/* ---------- copy ---------- */
 const HOW = [
-  ['Pick a style', 'TODO(copy): choose fantasy, sci-fi, cute, edgy, gamer tag or a mix.'],
-  ['Tune it', 'TODO(copy): set the length, capitals and separators, add numbers or a word of your own.'],
-  ['Copy or save', 'TODO(copy): copy a name in one tap, or star it to compare favourites side by side.'],
+  ['Pick a style', 'Choose fantasy, sci-fi, cute, edgy, gamer tag or a mix. Each style has its own word lists, so the names sound different, not just the same names in new clothes.'],
+  ['Tune it', 'Set a length from short to long, choose how capitals work, put an underscore, dot or dash between words, add numbers, or type a word of your own to build the name around.'],
+  ['Copy or save', 'Tap Copy on any name, or tap its star to keep it in your favourites. Press Generate or More for a fresh batch whenever you like, and copy the keepers before you leave.'],
 ];
 
 const FAQ = [
-  ['TODO(copy): Is the username generator free?', 'TODO(copy): yes, no sign-up and no limit.'],
-  ['TODO(copy): Are the names checked for availability?', 'TODO(copy): no, check on the platform before you rely on one.'],
-  ['TODO(copy): Are my favourites saved?', 'TODO(copy): only while the page is open; nothing is stored or sent.'],
-  ['TODO(copy): How long can a username be?', 'TODO(copy): depends on the platform; use the length setting.'],
-  ['TODO(copy): Can I use a name I make here?', 'TODO(copy): yes, it is yours to use.'],
+  ['Is the username generator free?', 'Yes. There is nothing to sign up for, no limit on how many names you make, and no download. The site is paid for by ads, which sit beside the tool and never get in the way of it.'],
+  ['Are the names checked to see if they are already taken?', 'No. The generator does not look anything up, so it cannot tell you whether a name is free on any game, app or social network. Many combinations will be unused, but some will not be. Treat every name as a suggestion until you have checked it yourself.'],
+  ['How do I check whether a name is available?', 'Open the sign-up page of the game or service you want and type the name in; most will say straight away if it is taken. For a quick look elsewhere, search the name in quotation marks in a search engine, and check it on the other platforms you use, so you can keep one name everywhere.'],
+  ['How long can a username be?', 'It depends on the service. Some games allow only 12 or 16 characters, some allow letters and numbers but no symbols, and some do not allow spaces, dots or dashes. Use the Length setting to stay inside the limit, and check the rules on the sign-up page. Length counts every character, including separators and numbers.'],
+  ['Does the site store or send the names I make?', 'No. Names are made by code running in your browser. The word you type, the names shown and your favourites are not sent to us or anyone else, and nothing is saved in cookies or in the browser\'s storage. The page does not make a network request to produce a name.'],
+  ['What happens to my favourites?', 'They are kept in the page\'s memory only. If you close the tab, reload the page or go to another site, they are gone. Use Copy all to paste the list somewhere safe, such as a note, before you leave.'],
+  ['How do I pick a name that is safe to share?', 'Leave out your real name, birthday, school, suburb and anything else that points to you. Avoid the same name and number you use for passwords or secret answers. A name made of two unrelated words, like the ones made here, tells strangers nothing about you.'],
+  ['Where do the names come from?', 'The word lists were written by hand for this site. The generator joins parts from a list for the style you chose, applies your options and removes repeats. Random choices come from your browser\'s built-in random number generator.'],
+  ['Can I use a name I make here?', 'Yes, you are free to use any name the tool suggests. We do not claim names, and we are not connected to any game or service. Because we cannot check, a name may look like a trademark or a name someone else already uses, so choose with care.'],
 ];
 
 const TIPS = [
-  'TODO(copy): keep it short enough to type on a controller.',
-  'TODO(copy): avoid your real name, birthday or location.',
-  'TODO(copy): say it out loud; teammates will.',
-  'TODO(copy): grab the same name on every platform you use.',
+  'Keep it short enough to type quickly, including on a controller or phone.',
+  'Leave out your real name, birthday, school, suburb and other personal details.',
+  'Say it out loud. If it is hard to say, teammates will find it hard to call.',
+  'Check the name on the sign-up page, and on each platform you use, before you rely on it.',
+  'Stay inside the length and character rules of the game, which differ from one to the next.',
 ];
 
 function home(ctx) {
   const body = `<main id="main">
-${hero({ h1: 'Username generator', lead: 'TODO(copy): Make usernames and gamer tags in five styles, tune the length and format, then copy the one you like. Everything runs in your browser.', trustItems: TRUST, h1Class: 'max-w-[14ch] text-[44px] sm:text-6xl md:text-[80px]', after: toolHtml() })}
+${hero({ h1: 'Username generator', lead: 'Make usernames and gamer tags in six styles, tune the length and format, then copy the one you like. Everything runs in your browser.', trustItems: TRUST, h1Class: 'max-w-[14ch] text-[44px] sm:text-6xl md:text-[80px]', after: toolHtml() })}
 ${adSlot(ctx, 'below-tool')}
 
 <section id="how" class="wrap mt-32 scroll-mt-20">
@@ -184,15 +189,15 @@ ${adSlot(ctx, 'below-tool')}
 </section>
 
 <section id="styles" class="wrap mt-32 scroll-mt-20">
-  ${sectionHead('Six styles to start from', 'TODO(copy): each style uses its own word lists and sound patterns, written for this site.')}
+  ${sectionHead('Six styles to start from', 'Each style has its own word lists and sound patterns, written for this site.')}
   <div class="ng-style-grid">${CATEGORIES.map((c) => `<article class="card ng-style"><h3 class="text-2xl">${c.label}</h3><div class="fmt-list ng-samples" translate="no">${c.samples.map((s) => `<span>${s}</span>`).join('')}</div><p>${c.blurb}</p></article>`).join('')}</div>
 </section>
 
 <section class="wrap mt-32 grid gap-10 md:grid-cols-2">
-  <div><h2 class="text-3xl md:text-4xl">TODO(copy): What makes a good username</h2>
-    <p class="mt-5 text-lg text-ink-2">TODO(copy): a paragraph on why short, pronounceable names are easier to remember, type and find, and how a consistent name across platforms helps.</p>
-    <p class="mt-5 text-lg text-ink-2">TODO(copy): a paragraph on how the generator combines word parts, and why some names may already be taken.</p></div>
-  <div class="card p-7 md:p-8"><h3 class="text-xl">TODO(copy): Tips before you claim one</h3><ul class="m-0 mt-5 grid list-none gap-4 p-0">${TIPS.map((t) => `<li class="flex gap-3 text-ink-2"><span class="mt-1 text-good">${ICON.check}</span><span>${t}</span></li>`).join('')}</ul></div>
+  <div><h2 class="text-3xl md:text-4xl">What makes a good username</h2>
+    <p class="mt-5 text-lg text-ink-2">A good username is short, easy to say and easy to spell. People will type it into search boxes, read it out in voice chat and squint at it in a lobby list, so a name with two clear words usually beats a long string of symbols. Using the same name on each service you use also makes you easier to find and easier to remember.</p>
+    <p class="mt-5 text-lg text-ink-2">The generator joins word parts from lists written for each style, applies the options you choose and drops repeats. It does not check any game or social network, so a name you like may already belong to someone else. Make a batch, save a few favourites, and test them on the sign-up page before you decide.</p></div>
+  <div class="card p-7 md:p-8"><h3 class="text-xl">Tips before you claim one</h3><ul class="m-0 mt-5 grid list-none gap-4 p-0">${TIPS.map((t) => `<li class="flex gap-3 text-ink-2"><span class="mt-1 text-good">${ICON.check}</span><span>${t}</span></li>`).join('')}</ul></div>
 </section>
 
 ${adSlot(ctx, 'mid')}
@@ -202,19 +207,22 @@ ${adSlot(ctx, 'mid')}
 </section>
 </main>`;
   return {
-    title: 'Username Generator: Fantasy, Sci-fi and Gamer Tag Names', // TODO(copy)
-    desc: 'TODO(copy): Free username generator. Make fantasy, sci-fi, cute, edgy and gamer tag names, set the length and style, and copy in one tap.',
+    title: 'Username Generator: Fantasy, Sci-fi and Gamer Tag Names',
+    desc: 'Free username generator. Make fantasy, sci-fi, cute, edgy and gamer tag names, set the length, capitals and separators, and copy in one tap. Runs in your browser; nothing is stored.',
     body, faq: FAQ, tool: { category: 'UtilitiesApplication' }, scripts: ['assets/tool.js'],
   };
 }
 
-/* ---------- text pages (framework templates; TODO(copy) for the logic/copy agent) ---------- */
+/* ---------- text pages (framework templates) ---------- */
 const pages = [
   { id: 'home', slug: '', tool: true, render: home },
-  { id: 'about', slug: 'about', render: (ctx) => aboutPage(ctx, { html: '<p>TODO(copy): why this tool exists and how it works. Word lists are written fresh for this site.</p>' }) },
-  { id: 'privacy', slug: 'privacy', render: (ctx) => privacyPage(ctx, { updated: UPDATED, dataTitle: 'What you type and the names you make', dataHtml: '<p>TODO(copy): names are generated in your browser. The optional word you type and your favourites stay in the page memory only and are gone when you close or reload it. Nothing is sent to us.</p>' }) },
-  { id: 'terms', slug: 'terms', render: (ctx) => termsPage(ctx, { updated: UPDATED, whatItIs: `${site.name} is a free tool that suggests usernames in your browser.`, ownershipHtml: '<p>TODO(copy): you may use any name you make. We do not claim names you generate.</p>', processingHtml: '<p>TODO(copy): names are made on your device and not kept by us.</p>', responsibilityHtml: '<p>TODO(copy): check a name is available, allowed on the platform, and does not infringe anyone else\'s rights before you use it.</p>' }) },
+  { id: 'about', slug: 'about', render: (ctx) => aboutPage(ctx, { html: `<p>${esc(site.name)} makes usernames and gamer tags for people who want a name and do not want to stare at an empty box. Pick a style, set a length and a few formatting options, and the page suggests twelve names at a time.</p>
+<p>Everything happens in your browser. The word lists were written by hand for this site and live in the page's own code; no names are fetched from a server, and nothing you type or save leaves your device. Random choices use the browser's built-in random number generator.</p>
+<p>The tool does not check whether a name is taken on any game or service, and it has no connection to any game, platform or brand. It uses no third-party code or libraries.</p>
+<p>It is free to use and is paid for by advertising. It is run by ${esc(site.operator)}, in Brisbane, Australia. Questions or ideas for a new style can go to ${esc(site.contact)}.</p>` }) },
+  { id: 'privacy', slug: 'privacy', render: (ctx) => privacyPage(ctx, { updated: UPDATED, dataTitle: 'What you type and the names you make', dataHtml: '<p>Names are made in your browser by code that is already on the page. The optional word you type, the options you choose, the names you see and the favourites you save are held in the page\'s memory only. They are never sent to us or to anyone else, and they are not written to cookies, local storage or any other storage. They are gone when you close or reload the page.</p><p>The tool does not need an account and does not ask for personal information. Please do not type personal details into the word box; there is no reason to.</p>' }) },
+  { id: 'terms', slug: 'terms', render: (ctx) => termsPage(ctx, { updated: UPDATED, whatItIs: `${site.name} is a free tool that suggests usernames and gamer tags in your browser.`, ownershipHtml: '<p>You may use any name the tool suggests, for any lawful purpose. We do not claim names you generate, and we do not keep them.</p>', processingHtml: '<p>Names are made on your device and are not sent to us. Favourites are kept in the page\'s memory and disappear when you close the page.</p>', responsibilityHtml: '<p>The tool does not check whether a name is available, allowed by a game or service, or already used or trademarked by someone else. Before you rely on a name, check it on the platform and make sure it does not infringe anyone else\'s rights or break that service\'s rules. Do not use a name to impersonate, harass or mislead anyone. Do not put personal details into a name you plan to share.</p>' }) },
   { id: 'contact', slug: 'contact', render: (ctx) => contactPage(ctx, { lead: 'Found a bug or have an idea for a style? Email us.' }) },
 ];
 
-export default { site, pages, copy: [['src/tool.js', 'assets/tool.js']] };
+export default { site, pages, copy: [['src/tool.js', 'assets/tool.js'], ['src/generate.mjs', 'assets/generate.mjs'], ['src/words.mjs', 'assets/words.mjs']] };
