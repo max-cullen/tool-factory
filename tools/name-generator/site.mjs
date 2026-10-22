@@ -8,6 +8,7 @@ const UPDATED = '23 October 2026';
 
 const site = {
   id: 'name-generator',
+  inputNoun: 'text',
   name: 'Username Generator',
   url: `${config.domain}/name-generator`,
   contact: config.contact,

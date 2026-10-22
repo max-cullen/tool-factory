@@ -9,6 +9,7 @@ const UPDATED = '23 October 2026';
 
 const site = {
   id: 'qr-code',
+  inputNoun: 'text',
   name: 'QR Code Generator',
   url: `${config.domain}/qr-code`,
   contact: config.contact,

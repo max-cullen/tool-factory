@@ -11,6 +11,10 @@ const draftNote = (ctx) => (ctx.preview ? '<p class="note note-warn mb-8">Draft 
  */
 export function privacyPage(ctx, { updated, dataTitle, dataHtml }) {
   const { site } = ctx;
+  // What the tool takes in. Optional site.inputNoun (e.g. 'text'); the default keeps the photo tools' pages unchanged.
+  const noun = site.inputNoun || 'photos';
+  const be = noun.endsWith('s') ? 'are' : 'is';
+  const notGiven = noun === 'photos' ? 'your photos, or anything you type into the tool,' : `anything you enter into the tool, including your ${noun},`;
   const html = `${draftNote(ctx)}
 <h2>The short version</h2>
 <p>${site.privacySummary}</p>
@@ -20,20 +24,20 @@ ${dataHtml}
 <p>We use Cloudflare Web Analytics to count visits and see which pages are used. It is configured without cookies and does not track you across other sites. It records information such as the page viewed, the referring site, and your browser, device type and country, in aggregate.</p>
 <h2>Advertising</h2>
 <p>${site.name} is free because it shows ads served by Google AdSense. To show and measure ads, Google and its advertising partners may collect information such as your IP address, device and browser details, the pages you view and how you interact with ads, and may store or read cookies and similar identifiers on your device. If you agree, this is also used to personalise ads based on your visits to this and other sites.</p>
-<p>We do not give your photos, or anything you type into the tool, to Google or any advertiser. Ads load separately from the tool.</p>
+<p>We do not give ${notGiven} to Google or any advertiser. Ads load separately from the tool.</p>
 <p>You can learn how Google uses information from sites that use its services at <a href="https://policies.google.com/technologies/partner-sites">policies.google.com/technologies/partner-sites</a>, and manage or turn off personalised ads at <a href="https://adssettings.google.com">adssettings.google.com</a>. If you are in the European Economic Area, the United Kingdom or Switzerland, you are asked for consent before ads that use cookies or similar technologies are shown, and you can change your choice at any time using the privacy settings link on the page.</p>
 <h2>How long information is kept</h2>
 <ul>
-<li><strong>Your photos and results:</strong> held only in your browser's memory while the page is open. They are gone when you close or reload it. We never receive a copy.</li>
+<li><strong>Your ${noun} and results:</strong> held only in your browser's memory while the page is open. They are gone when you close or reload it. We never receive a copy.</li>
 <li><strong>Hosting logs:</strong> our hosting provider keeps standard technical logs (such as IP address, page requested and time) for a limited period to run and secure the service.</li>
-<li><strong>Visitor statistics:</strong> kept in aggregate form by Cloudflare. They are not linked to your photos.</li>
+<li><strong>Visitor statistics:</strong> kept in aggregate form by Cloudflare. They are not linked to your ${noun}.</li>
 <li><strong>Advertising data:</strong> controlled by Google under its own policies.</li>
 <li><strong>Emails to us:</strong> kept for as long as needed to reply and keep a record, then deleted.</li>
 </ul>
 <h2>Where information is processed</h2>
-<p>The site is delivered through Cloudflare's global network, and ads are served by Google. Their services process information in several countries, including the United States and other countries outside Australia and your own. Your photos are not part of this: they stay on your device.</p>
+<p>The site is delivered through Cloudflare's global network, and ads are served by Google. Their services process information in several countries, including the United States and other countries outside Australia and your own. Your ${noun} ${be} not part of this: ${noun === 'photos' ? 'they stay' : 'it stays'} on your device.</p>
 <h2>Your rights, requests and complaints</h2>
-<p>You can ask us what personal information we hold about you, ask us to correct or delete it, or ask a question about this policy by emailing <strong>${esc(site.contact)}</strong>. We aim to reply within 30 days. Because we do not receive your photos and do not run accounts, the only personal information we are likely to hold is an email you send us.</p>
+<p>You can ask us what personal information we hold about you, ask us to correct or delete it, or ask a question about this policy by emailing <strong>${esc(site.contact)}</strong>. We aim to reply within 30 days. Because we do not receive your ${noun} and do not run accounts, the only personal information we are likely to hold is an email you send us.</p>
 <p>If you are not happy with our response, you can complain to the privacy regulator in your country. In Australia that is the Office of the Australian Information Commissioner (<a href="https://www.oaic.gov.au">oaic.gov.au</a>); in the United Kingdom, the Information Commissioner's Office; in the EU, your local data protection authority.</p>
 <h2>Children</h2>
 <p>${site.name} is a general-audience tool and is not directed at children under 13. We do not knowingly collect personal information from children.</p>
