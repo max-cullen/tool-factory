@@ -1,0 +1,5 @@
+/* Styles only the tool index needs. Shared styles are in framework/styles.css. */
+@layer components {
+  .tool-tile .big { font-size: 26px; letter-spacing: -0.03em; }
+  .cat-title { margin: 48px 0 16px; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-3); }
+}
