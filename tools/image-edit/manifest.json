@@ -1,0 +1,7 @@
+{
+  "name": "Image Editor",
+  "slug": "image-edit",
+  "description": "Rotate and flip a picture, adjust brightness, contrast, greyscale, sepia and blur with live sliders, then save as PNG, JPG or WebP. Runs in your browser; nothing is uploaded.",
+  "keywords": ["image editor", "rotate image", "flip image", "photo filters", "brightness contrast", "sepia filter", "blur image", "greyscale image", "convert image to jpg", "online photo editor"],
+  "category": "Images"
+}
