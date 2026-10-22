@@ -15,6 +15,7 @@ framework/            shared by every tool
 tools/
   _starter/           template copied for every new tool
   fitpic/             photo sizing tool (site.mjs, src/tool.js, tool.css, engine/, test/)
+  fitreel/            Reel video tool, built into Fitpic's site at /instagram/
 network.json          list of all tools; "live": true ones appear under "More tools" in every footer
 ```
 
@@ -71,7 +72,27 @@ Publish the tool's `dist` folder. On Cloudflare Pages: connect the GitHub repo, 
   ```
 - Known gaps: tested in Chromium only; Safari cannot encode WebP (falls back to JPEG with a warning); HEIC with rotation metadata untested; inputs over 100 megapixels are refused.
 
+## Tools inside another tool's site
+A tool can be served under another tool's domain. In the host's `site.mjs`, add `include: [{ tool: '<id>', path: '<folder>' }]`.
+Building the host then builds the included tool and copies it to `dist/<folder>/`, adding its pages to the host's sitemap.
+Set the included tool's `url` to the full sub-path (e.g. `https://usefitpic.com/instagram`). Nav and footer items can link
+across with `{ path: '../', label: '...' }` (relative to the tool's own root) or `{ href: 'https://...' }`.
+
+## FitReel (usefitpic.com/instagram)
+- Built automatically with Fitpic: `npm run build -- fitpic` outputs it to `tools/fitpic/dist/instagram`. No extra Cloudflare setup.
+- Drop a video and it makes a 1080x1920 MP4 (H.264 + AAC) straight away: framing (blur, crop, bars), location and hidden metadata removed, cover frame picked by detail and exposure. Options: split screen with a second clip the visitor uploads (loops if shorter; sound from main, second or none), trim, cover frame (downloads as JPG), quality, keep metadata, safe-zone overlay.
+- Engine: `tools/fitreel/engine/engine.js`, built on Mediabunny (MPL-2.0) and the browser's WebCodecs encoders. If the browser has no AAC encoder, `vendor/mediabunny-aac-encoder.min.mjs` (FFmpeg AAC in WebAssembly, ~1 MB) is loaded only then. Its import of `mediabunny` was rewritten to `./mediabunny.min.mjs`; redo that if you update it.
+- Copy rule: no reach or "algorithm" claims, "Instagram" only descriptively, and a not-affiliated line on every page.
+- Tests (from `tools/fitreel`, need ffmpeg):
+  ```
+  python3 -I test/make_fixtures.py test/fixtures
+  python3 -I test/run_tests.py . /tmp/fitreel_out                      # engine, 13 cases, checked with ffprobe
+  python3 -I test/site_test.py ../fitpic/dist test/fixtures /tmp/fitreel_site   # built site (run a preview build first)
+  ```
+- Known gaps: the test browser (open-source Chromium) has no H.264, so tests use VP9 input and output; H.264 is only exercised in real Chrome, Edge and Safari. Firefox may lack an H.264 encoder on some systems (the tool then warns). Long or 4K videos are slow on older phones. Inputs over 15 minutes are refused.
+
 ## Third-party pieces
 - Plus Jakarta Sans font (SIL Open Font License), embedded at build time from npm.
 - Tailwind CSS (build tool only, MIT).
 - heic2any / libheif (Fitpic only).
+- Mediabunny and @mediabunny/aac-encoder (MPL-2.0; the AAC encoder includes FFmpeg, LGPL) (FitReel only).

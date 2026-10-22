@@ -20,10 +20,10 @@ const site = {
   // Ads and analytics are off until these are filled in (see README, "Turning on ads").
   ads: { client: 'ca-pub-8622882132846694', slots: { 'below-tool': '', mid: '', 'rail-left': '', 'rail-right': '' } },
   analytics: { cloudflareToken: '' },
-  nav: [{ id: 'kb', label: 'File size' }, { id: 'px', label: 'Pixels' }, { id: 'home', label: 'Popular sizes', hash: '#sizes' }],
+  nav: [{ id: 'kb', label: 'File size' }, { id: 'px', label: 'Pixels' }, { id: 'home', label: 'Popular sizes', hash: '#sizes' }, { path: 'instagram/', label: 'Reels' }],
   cta: (page) => page.tool,
   footerCols: [
-    { title: 'Tools', links: [{ id: 'kb', label: 'Reduce size in KB' }, { id: 'px', label: 'Resize to exact pixels' }] },
+    { title: 'Tools', links: [{ id: 'kb', label: 'Reduce size in KB' }, { id: 'px', label: 'Resize to exact pixels' }, { path: 'instagram/', label: 'Video for Reels' }] },
     { title: 'Popular sizes', links: [{ id: 'kb20', label: 'Under 20KB' }, { id: 'kb50', label: 'Under 50KB' }, { id: 'kb100', label: 'Under 100KB' }, { id: 'kb200', label: 'Under 200KB' }] },
     { title: 'Site', links: [{ id: 'about', label: 'About' }, { id: 'privacy', label: 'Privacy' }, { id: 'terms', label: 'Terms' }, { id: 'contact', label: 'Contact' }] },
   ],
@@ -398,6 +398,8 @@ const pages = [
 export default {
   site,
   pages,
+  // Other tools built into this site under a sub-path.
+  include: [{ tool: 'fitreel', path: 'instagram' }],
   // [source in this folder, destination in dist]
   copy: [
     ['src/tool.js', 'assets/tool.js'],

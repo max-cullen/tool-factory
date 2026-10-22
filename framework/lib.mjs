@@ -32,8 +32,15 @@ export function createContext({ site, pages, network = [], preview = false }) {
     const href = to.slug ? `${rel}${to.slug}/${preview ? 'index.html' : ''}` : preview ? `${rel}index.html` : rel;
     return href + hash;
   };
+  // A nav or footer item: { id, hash } for a page of this site, { path } for another part of the same domain
+  // (relative to this site's root, e.g. '../' from a tool served in a subfolder), or { href } for a full URL.
+  const itemHref = (from, item) => {
+    if (item.href) return item.href;
+    if (item.path != null) return relRoot(from.slug) + item.path + (preview && (item.path === '' || item.path.endsWith('/')) ? 'index.html' : '');
+    return link(from, item.id, item.hash);
+  };
   const otherTools = network.filter((t) => t.id !== site.id && t.live);
-  return { site, pages, byId, network, otherTools, preview, link, relRoot };
+  return { site, pages, byId, network, otherTools, preview, link, itemHref, relRoot };
 }
 
 /* ---------- shared pieces ---------- */
@@ -43,8 +50,8 @@ export function logo(ctx) {
 }
 
 export function header(ctx, page) {
-  const { site, link } = ctx;
-  const items = site.nav.map((n) => `<a class="navlink" href="${link(page, n.id, n.hash)}"${page.id === n.id && !n.hash ? ' aria-current="page"' : ''}>${n.label}</a>`).join('');
+  const { site, link, itemHref } = ctx;
+  const items = site.nav.map((n) => `<a class="navlink" href="${itemHref(page, n)}"${n.id && page.id === n.id && !n.hash ? ' aria-current="page"' : ''}>${n.label}</a>`).join('');
   const cta = site.cta?.(page) ? '<a class="btn btn-light !h-10 !px-5 !text-sm" href="#tool">Try it</a>' : '';
   return `<a class="skip" href="#main">Skip to content</a>
 <header class="site-header" data-header>
@@ -58,8 +65,8 @@ export function header(ctx, page) {
 }
 
 export function footer(ctx, page) {
-  const { site, link, otherTools } = ctx;
-  const li = (l) => `<li><a href="${link(page, l.id, l.hash)}">${l.label}</a></li>`;
+  const { site, link, itemHref, otherTools } = ctx;
+  const li = (l) => `<li><a href="${itemHref(page, l)}">${l.label}</a></li>`;
   const col = (title, inner) => `<div><p class="text-sm font-semibold text-ink">${title}</p><ul class="m-0 mt-4 grid list-none gap-2.5 p-0 text-[15px]">${inner}</ul></div>`;
   const cols = site.footerCols.map((c) => col(c.title, c.links.map(li).join('')));
   if (otherTools.length) cols.push(col('More tools', otherTools.map((t) => `<li><a href="${t.url}">${esc(t.name)}</a></li>`).join('')));

@@ -5,5 +5,12 @@
     "url": "https://usefitpic.com",
     "blurb": "Fit any photo to an exact KB size or exact pixels",
     "live": false
+  },
+  {
+    "id": "fitreel",
+    "name": "FitReel",
+    "url": "https://usefitpic.com/instagram",
+    "blurb": "Get any video Reel-ready: 9:16, location removed, cover picked",
+    "live": false
   }
 ]
