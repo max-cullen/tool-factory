@@ -1,0 +1,151 @@
+/* Business Card Maker: styles only this tool needs. Shared colours, type, buttons, .tool/.panel/.stage, .seg, .field,
+   .check, .chip, .note, .card and FAQ come from framework/styles.css. Everything here is prefixed bc- except .range. */
+@layer components {
+  /* ---------- Tool shell: three regions ----------
+     Phone (one column, DOM order): Content -> Preview -> Style.
+     Desktop (>= 920px): Content and Style on the left, the preview sticky on the right. */
+  .bc-tool { grid-template-areas: "input" "stage" "look"; }
+  .bc-input { grid-area: input; }
+  .bc-stage { grid-area: stage; }
+  .bc-look { grid-area: look; }
+  @media (min-width: 920px) {
+    .bc-tool { grid-template-columns: minmax(0, 1fr) 404px; grid-template-areas: "input stage" "look stage"; grid-template-rows: auto 1fr; }
+    .bc-input { box-shadow: none; }
+    .bc-look { box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06); }
+    .bc-stage { box-shadow: inset 1px 0 0 rgb(255 255 255 / 0.06); background: rgb(0 0 0 / 0.12); }
+  }
+  .bc-tool .panel { gap: 18px; }
+  .bc-stage { min-height: 0; padding: 24px 20px; box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06); }
+  @media (min-width: 920px) { .bc-stage { min-height: 0; padding: 30px 28px; } }
+  .bc-stage-in { display: flex; flex-direction: column; gap: 16px; }
+  @media (min-width: 920px) { .bc-stage-in { position: sticky; top: 88px; } }
+
+  /* Step headings */
+  .bc-step { display: flex; align-items: center; gap: 10px; }
+  .bc-step-stage { justify-content: space-between; }
+  .bc-step-title { margin: 0; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+  .bc-num { flex: none; width: 26px; height: 26px; border-radius: 99px; display: grid; place-items: center; font-size: 13px; font-weight: 750; color: #fff; background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2)); box-shadow: 0 6px 16px -6px rgb(109 93 252 / 0.8); }
+  .bc-num-lg { width: 36px; height: 36px; font-size: 15px; }
+
+  /* ---------- Type tabs (role=tablist) ---------- */
+
+  /* ---------- Forms ---------- */
+  .bc-f { display: grid; gap: 8px; min-width: 0; align-content: start; }
+  .bc-row { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 560px) { .bc-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 920px) { .bc-look .bc-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .bc-opt { font-size: 12px; font-weight: 500; color: var(--color-ink-3); }
+
+  /* Text-like inputs: calmer than the framework's numeric fields; 16px stops iOS zooming in */
+  .bc-tool .field input, .bc-tool .field textarea { font-size: 16px; font-weight: 550; font-variant-numeric: normal; }
+  .bc-tool .field input::placeholder, .bc-tool .field textarea::placeholder { font-size: 15px; }
+  .bc-err { margin: 0; font-size: 13px; font-weight: 550; color: var(--color-bad); }
+
+  /* ---------- Preview stage ---------- */
+  .bc-frame { position: relative; width: 100%; padding: 14px; border-radius: 22px; background: var(--color-well); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.07); }
+  .bc-status { margin: 0; min-height: 1.5em; text-align: center; font-size: 13.5px; color: var(--color-ink-3); }
+
+  .bc-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 0; }
+  .bc-facts div { padding: 10px 12px; border-radius: 13px; background: rgb(255 255 255 / 0.04); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06); min-width: 0; }
+  .bc-facts dt { font-size: 11.5px; color: var(--color-ink-3); }
+  .bc-facts dd { margin: 2px 0 0; font-size: 14.5px; font-weight: 650; color: var(--color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .bc-dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .bc-dl .btn { padding: 0 14px; height: 52px; }
+  .bc-forever { font-weight: 500; }
+  .bc-forever strong { font-weight: 700; }
+
+  /* ---------- Appearance ---------- */
+  .bc-colors { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .bc-color { display: flex; align-items: center; gap: 10px; min-width: 0; height: 58px; padding: 0 12px 0 8px; border-radius: 14px; background: var(--color-well); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08); transition: box-shadow 0.15s; }
+  .bc-color:focus-within { box-shadow: inset 0 0 0 1.5px var(--color-accent), 0 0 0 4px rgb(124 108 255 / 0.18); }
+  .bc-color input[type="color"] { flex: none; width: 42px; height: 42px; padding: 0; border: 0; border-radius: 10px; background: none; cursor: pointer; -webkit-appearance: none; appearance: none; }
+  .bc-color input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+  .bc-color input[type="color"]::-webkit-color-swatch { border: 0; border-radius: 10px; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.25); }
+  .bc-color input[type="color"]::-moz-color-swatch { border: 0; border-radius: 10px; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.25); }
+  .bc-color input[type="color"]:focus-visible { outline: 2px solid var(--color-accent-ink); outline-offset: 2px; }
+  .bc-color-txt { display: grid; min-width: 0; }
+  .bc-color-txt label { font-size: 11.5px; font-weight: 600; color: var(--color-ink-3); line-height: 1.2; }
+  .bc-color-txt input { width: 100%; min-width: 0; border: 0; padding: 0; background: transparent; color: var(--color-ink); font-size: 16px; font-weight: 650; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; text-transform: uppercase; outline: none; }
+  .bc-color-txt input.is-bad { color: var(--color-bad); }
+  @media (max-width: 420px) {
+    .bc-color { gap: 8px; padding: 0 8px 0 7px; }
+    .bc-color input[type="color"] { width: 34px; height: 34px; }
+    .bc-color-txt input { font-size: 15px; letter-spacing: 0; }
+  }
+
+  .bc-contrast { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 13px; font-weight: 550; color: var(--color-ink-2); }
+  .bc-contrast i { flex: none; width: 8px; height: 8px; border-radius: 99px; background: var(--color-ink-3); }
+  .bc-contrast.is-good i { background: var(--color-good); }
+  .bc-contrast.is-warn { color: var(--color-warn); }
+  .bc-contrast.is-warn i { background: var(--color-warn); }
+  .bc-contrast.is-bad { color: var(--color-bad); }
+  .bc-contrast.is-bad i { background: var(--color-bad); }
+
+  .bc-val { font-size: 13px; font-weight: 650; color: var(--color-ink); }
+
+  /* Sliders (same look as FitReel's, with the base accent) */
+  .range { -webkit-appearance: none; appearance: none; width: 100%; height: 32px; margin: 0; background: transparent; cursor: pointer; }
+  .range::-webkit-slider-runnable-track { height: 6px; border-radius: 99px; background: rgb(255 255 255 / 0.1); }
+  .range::-moz-range-track { height: 6px; border-radius: 99px; background: rgb(255 255 255 / 0.1); }
+  .range::-moz-range-progress { height: 6px; border-radius: 99px; background: var(--color-accent); }
+  .range::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; margin-top: -9px; border-radius: 99px; background: #fff; border: 0; box-shadow: 0 2px 10px rgb(0 0 0 / 0.5); }
+  .range::-moz-range-thumb { width: 24px; height: 24px; border-radius: 99px; background: #fff; border: 0; box-shadow: 0 2px 10px rgb(0 0 0 / 0.5); }
+  .range:focus-visible { outline: none; }
+  .range:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px rgb(124 108 255 / 0.55); }
+  .range:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 4px rgb(124 108 255 / 0.55); }
+
+  /* ---------- Page sections ---------- */
+  .bc-how { position: relative; }
+  .bc-kinds { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 640px) { .bc-kinds { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1000px) { .bc-kinds { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .bc-kind { padding: 26px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+
+  /* ---------- Business card additions ---------- */
+  .bc-canvas { display: block; width: 100%; height: auto; aspect-ratio: 90 / 55; border-radius: 6px; box-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.7); background: #fff; }
+  .bc-lead { margin: -8px 0 0; }
+  .bc-side { min-width: 150px; }
+  .bc-side[hidden] { display: none; }
+  .bc-guide { min-height: 44px; }
+  .bc-dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .bc-dl .btn { padding: 0 12px; height: 52px; gap: 8px; white-space: nowrap; }
+  .bc-dl .btn small { font-size: 11.5px; font-weight: 550; opacity: 0.8; }
+  .bc-dl-wide { grid-column: 1 / -1; white-space: normal !important; height: auto !important; min-height: 48px; padding-block: 8px !important; }
+  @media (max-width: 420px) { .bc-dl .btn:not(.bc-dl-wide) small { display: none; } }
+  .bc-forever { font-weight: 500; }
+  .bc-forever strong { font-weight: 700; }
+  .bc-bleed-note { margin: -8px 0 0; }
+  .bc-colors { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .bc-presets { display: flex; flex-wrap: wrap; gap: 8px; }
+  .bc-preset { display: inline-flex; width: 64px; height: 44px; padding: 0; border: 0; border-radius: 12px; overflow: hidden; cursor: pointer; background: none; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.18); transition: transform 0.15s; }
+  .bc-preset i { flex: 1; }
+  .bc-preset i:nth-child(1) { background: var(--a); } .bc-preset i:nth-child(2) { background: var(--b); } .bc-preset i:nth-child(3) { background: var(--c); }
+  .bc-preset:hover { transform: translateY(-1px); }
+  .bc-preset:focus-visible { outline: 2px solid var(--color-accent-ink); outline-offset: 2px; }
+  .bc-picks { display: grid; gap: 10px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (min-width: 560px) { .bc-layouts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .bc-pick { position: relative; display: grid; gap: 6px; align-content: start; min-width: 0; padding: 8px; border-radius: 14px; cursor: pointer; background: var(--color-well); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08); transition: box-shadow 0.15s, background-color 0.15s; }
+  .bc-pick:hover { background: rgb(255 255 255 / 0.07); }
+  .bc-pick input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+  .bc-pick:has(input:checked) { box-shadow: inset 0 0 0 2px var(--color-accent), 0 0 0 4px rgb(124 108 255 / 0.18); }
+  .bc-pick:has(input:focus-visible) { outline: 2px solid var(--color-accent-ink); outline-offset: 2px; }
+  .bc-pick span { font-size: 13.5px; font-weight: 650; color: var(--color-ink); text-align: center; }
+  .bc-layout canvas { display: block; width: 100%; height: auto; aspect-ratio: 90 / 55; border-radius: 4px; background: #fff; }
+  .bc-font { padding: 0; }
+  .bc-font span { display: block; padding: 13px 10px; font-size: 15px; text-align: left; }
+  .bc-font b { font-size: 20px; margin-right: 6px; }
+  .bc-logo { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .bc-logo-btn { position: relative; cursor: pointer; gap: 8px; }
+  .bc-logo-btn:focus-within { outline: 2px solid var(--color-accent-ink); outline-offset: 2px; }
+  .bc-file { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .bc-logo-clear { height: 36px; padding: 0 12px; gap: 6px; }
+  .bc-logo-clear[hidden] { display: none; }
+  .bc-thumb { display: block; width: 100%; height: auto; border-radius: 6px; box-shadow: 0 10px 24px -12px rgb(0 0 0 / 0.7); background: #fff; }
+}
+@layer components {
+  .bc-facts dd { white-space: normal; font-size: 13.5px; overflow-wrap: anywhere; }
+  .bc-dl-wide { flex-wrap: wrap; justify-content: center; text-align: center; row-gap: 0; }
+  .bc-dl-wide small { flex-basis: 100%; }
+  @media (min-width: 920px) { .bc-dl-wide small { flex-basis: auto; } }
+}
