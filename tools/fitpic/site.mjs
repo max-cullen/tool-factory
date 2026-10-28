@@ -23,7 +23,7 @@ const site = {
   nav: [{ id: 'kb', label: 'File size' }, { id: 'px', label: 'Pixels' }, { id: 'home', label: 'Popular sizes', hash: '#sizes' }],
   cta: (page) => page.tool,
   footerCols: [
-    { title: 'Tools', links: [{ id: 'kb', label: 'Reduce size in KB' }, { id: 'px', label: 'Resize to exact pixels' }, { path: 'instagram/', label: 'Video for Reels' }] },
+    { title: 'Tools', links: [{ id: 'kb', label: 'Reduce size in KB' }, { id: 'px', label: 'Resize to exact pixels' }, { path: 'instagram/', label: 'Video for Reels' }, { path: 'tools/', label: 'All tools' }] },
     { title: 'Popular sizes', links: [{ id: 'kb20', label: 'Under 20KB' }, { id: 'kb50', label: 'Under 50KB' }, { id: 'kb100', label: 'Under 100KB' }, { id: 'kb200', label: 'Under 200KB' }] },
     { title: 'Site', links: [{ id: 'about', label: 'About' }, { id: 'privacy', label: 'Privacy' }, { id: 'terms', label: 'Terms' }, { id: 'contact', label: 'Contact' }] },
   ],
@@ -404,7 +404,20 @@ export default {
   site,
   pages,
   // Other tools built into this site under a sub-path.
-  include: [{ tool: 'fitreel', path: 'instagram' }],
+  include: [
+    { tool: 'fitreel', path: 'instagram' },
+    { tool: 'hub', path: 'tools' },
+    { tool: 'name-generator', path: 'name-generator' },
+    { tool: 'qr-code', path: 'qr-code' },
+    { tool: 'image-converter', path: 'image-converter' },
+    { tool: 'image-cropper', path: 'image-cropper' },
+    { tool: 'image-resizer', path: 'image-resizer' },
+    { tool: 'image-edit', path: 'image-edit' },
+    { tool: 'business-card-maker', path: 'business-card-maker' },
+    { tool: 'timer-pomodoro', path: 'timer-pomodoro' },
+    { tool: 'word-counter', path: 'word-counter' },
+    { tool: 'mp3-to-mp4', path: 'mp3-to-mp4' },
+  ],
   // [source in this folder, destination in dist]
   copy: [
     ['src/tool.js', 'assets/tool.js'],
