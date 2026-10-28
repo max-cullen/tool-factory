@@ -49,7 +49,7 @@ Added: `framework/config.mjs`, `framework/manifests.mjs` (+ test), `tools/hub/` 
 
 ## Decisions taken while unattended (the review agent copies these into REPORT.md)
 - The handover assumed a loose `tools/<slug>/index.html` layout. The repo has a framework with `site.mjs`, so tools follow the framework and add `manifest.json` on top. Each tool builds as its own small site.
-- The tool index is a framework site at `tools/hub`, intended for `https://<domain>/tools/`. Wiring it (and new tools) into the live site is a manual step for the owner (an `include` entry in `tools/fitpic/site.mjs`, like FitReel); not done here because it would change the live site.
+- The tool index is a framework site at `tools/hub`, intended for `https://<domain>/tools/`. The hub and all ten new tools are wired into the main site build by `include` entries in `tools/fitpic/site.mjs` (like FitReel), so one deploy of `tools/fitpic/dist` serves everything. That wiring is its own commit on `setup/shared` ("Serve the new tools and the tool index from the main site build"); revert it to keep the new tools out of the live site. A new tool needs its own `include` line there.
 - A real AdSense publisher id (`ca-pub-...`) is already committed on `main` in `tools/fitpic/site.mjs` and `tools/fitreel/site.mjs`. Left as is. All new code uses empty ids.
 - Existing third-party code on `main`: heic2any/libheif (LGPL, Fitpic), Mediabunny (MPL-2.0) and an optional FFmpeg AAC encoder (LGPL, FitReel). These sit outside the "MIT, BSD or Apache-2.0" list in the briefs; flagged for the owner, not changed.
 - `image-compressor` is the existing `tools/fitpic`; its tidy-up adds README, tests and content checks only, with no change to working logic.
