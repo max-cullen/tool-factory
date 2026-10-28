@@ -1,0 +1,7 @@
+{
+  "name": "Image Resizer",
+  "slug": "image-resizer",
+  "description": "Resize one or many images by pixels or percent. Lock the aspect ratio, pick a common size, choose stretch, fit or fill, and save PNG, JPG or WebP. Runs in your browser; nothing is uploaded.",
+  "keywords": ["image resizer", "resize image online", "resize photo", "change image size", "resize by percent", "resize to pixels", "batch image resize", "free image resizer"],
+  "category": "Images"
+}
