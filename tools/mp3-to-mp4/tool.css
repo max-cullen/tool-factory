@@ -1,0 +1,96 @@
+/* MP3 to MP4 Converter: styles only this tool needs. Shared colours, type, buttons, .tool/.panel/.stage, .drop, .seg, .field,
+   .chip, .note, .card and FAQ come from framework/styles.css. Everything here is prefixed mp-. */
+@layer components {
+  /* ---------- Tool shell: Files -> Preview/convert -> Settings on phones; files and settings left, stage right on desktop ---------- */
+  .mp-tool { grid-template-areas: "input" "look" "stage"; }
+  .mp-input { grid-area: input; }
+  .mp-stage { grid-area: stage; }
+  .mp-look { grid-area: look; }
+  @media (min-width: 920px) {
+    .mp-tool { grid-template-columns: minmax(0, 1fr) 420px; grid-template-areas: "input stage" "look stage"; grid-template-rows: auto 1fr; }
+    .mp-input { box-shadow: none; }
+    .mp-stage { box-shadow: inset 1px 0 0 rgb(255 255 255 / 0.06); background: rgb(0 0 0 / 0.12); }
+  }
+  .mp-tool .panel { gap: 20px; }
+  .mp-stage { min-height: 0; padding: 24px 20px; box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06); }
+  @media (min-width: 920px) { .mp-stage { padding: 30px 28px; } }
+  .mp-stage-in { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  @media (min-width: 920px) { .mp-stage-in { position: sticky; top: 88px; } }
+
+  .mp-step { display: flex; align-items: center; gap: 10px; }
+  .mp-step-stage { justify-content: space-between; }
+  .mp-step-title { margin: 0; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+  .mp-num { flex: none; width: 26px; height: 26px; border-radius: 99px; display: grid; place-items: center; font-size: 13px; font-weight: 750; color: #fff; background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2)); box-shadow: 0 6px 16px -6px rgb(109 93 252 / 0.8); }
+  .mp-num-lg { width: 36px; height: 36px; font-size: 15px; }
+  .mp-live { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 600; color: var(--color-ink-3); }
+  .mp-live i { width: 7px; height: 7px; border-radius: 99px; background: var(--color-good); box-shadow: 0 0 0 3px rgb(94 227 164 / 0.18); }
+  .mp-opt { font-size: 12px; font-weight: 500; color: var(--color-ink-3); }
+
+  /* ---------- File pickers (the framework .drop, made shorter) ---------- */
+  .mp-pick { position: relative; display: grid; gap: 8px; min-width: 0; }
+  .mp-file { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; pointer-events: none; }
+  .mp-drop { min-height: 168px; padding: 22px 16px; gap: 6px; }
+  .mp-drop-sm { min-height: 128px; padding: 16px; }
+  .mp-drop-icon { width: 48px; height: 48px; border-radius: 16px; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2)); box-shadow: 0 12px 30px -12px rgb(109 93 252 / 0.7); margin-bottom: 6px; transition: transform 0.25s var(--ease-out); }
+  .mp-drop:hover .mp-drop-icon, .mp-drop.is-over .mp-drop-icon { transform: translateY(-3px); }
+  .mp-drop-sm .mp-drop-icon { width: 40px; height: 40px; border-radius: 13px; }
+  .mp-drop-title { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; max-width: 100%; overflow-wrap: anywhere; }
+  .mp-drop-sub { font-size: 14px; color: var(--color-ink-2); max-width: 36ch; }
+  .mp-drop.has-file { border-style: solid; border-color: var(--color-line-2); }
+  .mp-pick:focus-within .mp-drop { border-color: var(--color-accent); }
+  .mp-clear { justify-self: start; gap: 6px; }
+  .mp-err { margin: 0; font-size: 13.5px; font-weight: 550; color: var(--color-bad); }
+
+  /* ---------- Settings ---------- */
+  .mp-f { display: grid; gap: 8px; min-width: 0; align-content: start; }
+  .mp-sizes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .mp-size { position: relative; display: block; cursor: pointer; min-width: 0; }
+  .mp-size input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+  .mp-size span { display: grid; gap: 2px; padding: 11px 12px; min-height: 58px; border-radius: 14px; background: rgb(255 255 255 / 0.05); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08); transition: background-color 0.18s, box-shadow 0.18s; }
+  .mp-size b { font-size: 15px; font-weight: 700; color: var(--color-ink); }
+  .mp-size small { font-size: 12px; color: var(--color-ink-3); }
+  .mp-size:hover span { background: rgb(255 255 255 / 0.09); }
+  .mp-size input:checked + span { background: var(--color-accent-soft); box-shadow: inset 0 0 0 1.5px var(--color-accent); }
+  .mp-size input:focus-visible + span { outline: 2px solid var(--color-accent-ink); outline-offset: 2px; }
+  .mp-tool .seg span { white-space: normal; line-height: 1.25; }
+  .mp-tool .btn:focus-visible, .mp-tool .chip:focus-visible { outline: 2px solid var(--color-accent-ink); outline-offset: 2px; }
+  .mp-color { display: flex; align-items: center; gap: 10px; min-width: 0; height: 58px; padding: 0 12px 0 8px; border-radius: 14px; background: var(--color-well); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08); }
+  .mp-color:focus-within { box-shadow: inset 0 0 0 1.5px var(--color-accent), 0 0 0 4px rgb(124 108 255 / 0.18); }
+  .mp-color input[type="color"] { flex: none; width: 42px; height: 42px; padding: 0; border: 0; border-radius: 10px; background: none; cursor: pointer; -webkit-appearance: none; appearance: none; }
+  .mp-color input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+  .mp-color input[type="color"]::-webkit-color-swatch { border: 0; border-radius: 10px; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.25); }
+  .mp-color input[type="color"]::-moz-color-swatch { border: 0; border-radius: 10px; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.25); }
+  .mp-color-txt { display: grid; min-width: 0; }
+  .mp-color-txt label { font-size: 11.5px; font-weight: 600; color: var(--color-ink-3); line-height: 1.2; }
+  .mp-color-txt input { width: 100%; min-width: 0; border: 0; padding: 0; background: transparent; color: var(--color-ink); font-size: 16px; font-weight: 650; letter-spacing: 0.02em; text-transform: uppercase; outline: none; }
+  .mp-color-txt input.is-bad { color: var(--color-bad); }
+  .mp-audio-note { margin: 0; }
+
+  /* ---------- Stage ---------- */
+  .mp-frame { width: 100%; border-radius: 18px; padding: 10px; background: var(--color-well); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.07); }
+  .mp-preview { display: block; width: 100%; height: auto; border-radius: 10px; box-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.7); max-height: 360px; object-fit: contain; margin-inline: auto; background: #000; }
+  .mp-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 0; }
+  .mp-facts div { padding: 10px 12px; border-radius: 13px; background: rgb(255 255 255 / 0.04); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06); min-width: 0; }
+  .mp-facts dt { font-size: 11.5px; color: var(--color-ink-3); }
+  .mp-facts dd { margin: 2px 0 0; font-size: 14px; font-weight: 650; color: var(--color-ink); overflow-wrap: anywhere; line-height: 1.3; }
+  .mp-note { margin: 0; }
+  .mp-note[hidden], .mp-err[hidden], .mp-progress[hidden], .mp-result[hidden], .mp-clear[hidden] { display: none; }
+  .mp-progress { display: grid; gap: 8px; }
+  .mp-bar { height: 10px; border-radius: 99px; background: rgb(255 255 255 / 0.1); overflow: hidden; }
+  .mp-bar i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--color-accent), var(--color-accent-2)); transition: width 0.25s var(--ease-out); }
+  .mp-stage-text { margin: 0; font-size: 13.5px; color: var(--color-ink-2); text-align: center; }
+  .mp-actions { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .mp-actions .btn, .mp-download { height: 54px; padding: 0 16px; }
+  .mp-actions [hidden] { display: none; }
+  .mp-result { display: grid; gap: 12px; }
+  .mp-download { display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
+  .mp-status { margin: 0; min-height: 1.5em; text-align: center; font-size: 13.5px; color: var(--color-ink-3); }
+  .mp-tool.is-busy .mp-input, .mp-tool.is-busy .mp-look { opacity: 0.55; pointer-events: none; }
+
+  /* ---------- Page sections ---------- */
+  .mp-how { position: relative; }
+  .mp-formats { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 760px) { .mp-formats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .mp-format { padding: 26px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .mp-kind { align-self: flex-start; padding: 5px 14px; border-radius: 99px; font-size: 15px; font-weight: 750; letter-spacing: 0.02em; color: var(--color-accent-ink); background: var(--color-accent-soft); }
+}

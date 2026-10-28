@@ -6,7 +6,9 @@
   "scripts": {
     "build": "node framework/build.mjs",
     "preview": "node framework/build.mjs --preview",
-    "new": "node framework/new-tool.mjs"
+    "new": "node framework/new-tool.mjs",
+    "test": "node --test",
+    "check": "node --test framework/manifests.test.mjs && node framework/build.mjs hub"
   },
   "devDependencies": {
     "@fontsource-variable/plus-jakarta-sans": "^5.3.0",

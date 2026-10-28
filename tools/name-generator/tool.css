@@ -1,0 +1,108 @@
+/* Username Generator: only what this tool needs. Shared design (colours, type, buttons, seg, chips, fields,
+   cards, FAQ, tool shell) comes from framework/styles.css. Prefix: ng-. See DESIGN-NOTES.md. */
+@layer components {
+  /* Tool shell: options on the left (first in the DOM, so keyboard order is options, Generate, results). */
+  @media (min-width: 920px) {
+    .ng-tool { grid-template-columns: 372px minmax(0, 1fr); }
+    .ng-panel { box-shadow: inset -1px 0 0 rgb(255 255 255 / 0.06); }
+  }
+  .ng-panel { gap: 24px; }
+  @media (max-width: 919px) { .ng-panel { box-shadow: none; } .ng-stage { box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06); } }
+  .ng-fs { border: 0; margin: 0; padding: 0; min-width: 0; display: grid; gap: 12px; }
+  .ng-fs legend { padding: 0; margin-bottom: 12px; }
+  .ng-opt { font-weight: 500; color: var(--color-ink-3); }
+
+  /* Style chooser: radio cards, two per row */
+  .ng-cats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .ng-cat { position: relative; display: grid; gap: 1px; min-height: 58px; padding: 10px 14px; border-radius: 14px; cursor: pointer; background: rgb(255 255 255 / 0.04); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08); transition: background-color 0.15s, box-shadow 0.15s, transform 0.15s var(--ease-out); }
+  .ng-cat:hover { background: rgb(255 255 255 / 0.08); }
+  .ng-cat:active { transform: scale(0.98); }
+  .ng-cat input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+  .ng-cat-name { font-size: 14.5px; font-weight: 650; color: var(--color-ink); }
+  .ng-cat-eg { font-size: 12.5px; color: var(--color-ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ng-cat:has(input:checked) { background: var(--color-ink); box-shadow: none; }
+  .ng-cat:has(input:checked) .ng-cat-name { color: var(--color-bg); }
+  .ng-cat:has(input:checked) .ng-cat-eg { color: #4a4f6e; }
+  .ng-cat:has(input:focus-visible) { outline: 2px solid var(--color-accent-ink); outline-offset: 2px; }
+
+  .ng-panel .seg span { padding: 10px 6px; }
+  .ng-panel .seg-sm span { padding: 8px 6px; font-size: 13.5px; }
+  .ng-panel .field { height: 48px; }
+  .ng-panel .field input { font-size: 16px; font-weight: 600; }
+  .ng-panel .check { min-height: 32px; }
+  .ng-go { height: 54px; font-size: 16px; }
+
+  /* Results stage */
+  .ng-stage { gap: 14px; padding: 18px 16px 20px; min-height: 0; }
+  @media (min-width: 920px) { .ng-stage { padding: 26px 26px 24px; min-height: 590px; } }
+  .ng-head { display: flex; align-items: center; gap: 12px; }
+  .ng-head > .min-w-0 { flex: 1; }
+  .ng-title { font-size: 20px; letter-spacing: -0.02em; }
+  .ng-meta { margin: 2px 0 0; font-size: 14px; color: var(--color-ink-3); }
+  .ng-again { height: 40px; padding: 0 16px; font-size: 14px; flex: none; }
+  .ng-busy { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--color-ink-2); flex: none; }
+  .ng-tool.is-working .ng-results { opacity: 0.5; transition: opacity 0.2s; }
+
+  .ng-results { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 640px) { .ng-results { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .ng-item { display: flex; align-items: center; gap: 6px; min-width: 0; min-height: 56px; padding: 6px 6px 6px 16px; border-radius: 14px; background: var(--color-well); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06); transition: box-shadow 0.15s, background-color 0.15s; }
+  .ng-item:hover { box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.14); }
+  .ng-item.is-new { animation: rise 0.45s var(--ease-out) both; animation-delay: calc(var(--k, 0) * 25ms); }
+  .ng-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 17px; font-weight: 650; letter-spacing: -0.01em; color: var(--color-ink); user-select: all; -webkit-user-select: all; }
+  .ng-len { flex: none; font-size: 12px; color: var(--color-ink-3); padding: 0 4px; }
+
+  /* Small icon buttons (favourite star, copy in favourites, remove) */
+  .ng-ico { flex: none; display: inline-grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 12px; background: transparent; color: var(--color-ink-3); cursor: pointer; transition: color 0.15s, background-color 0.15s, transform 0.15s var(--ease-out); }
+  .ng-ico:hover { color: var(--color-ink); background: rgb(255 255 255 / 0.07); }
+  .ng-ico:active { transform: scale(0.92); }
+  .ng-ico-sm { width: 40px; height: 40px; }
+  .ng-star[aria-pressed="true"] { color: var(--color-warn); }
+  .ng-star[aria-pressed="true"] svg { fill: currentColor; }
+
+  /* Copy button: label switches to "Copied" with a tick when the logic adds .is-copied */
+  .ng-copy { flex: none; display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 14px; border: 0; border-radius: 12px; background: rgb(255 255 255 / 0.07); color: var(--color-ink); font: inherit; font-size: 14px; font-weight: 650; cursor: pointer; transition: background-color 0.15s, color 0.15s, transform 0.15s var(--ease-out); }
+  .ng-copy:hover { background: rgb(255 255 255 / 0.12); }
+  .ng-copy:active { transform: scale(0.96); }
+  .i-done { display: none; }
+  .is-copied .i-copy { display: none; }
+  .is-copied .i-done { display: block; }
+  .ng-copy.is-copied { background: var(--color-good-soft); color: var(--color-good); }
+  .ng-ico.is-copied { color: var(--color-good); }
+  @media (max-width: 380px) { .ng-copy { padding: 0 12px; } .ng-copy [data-copy-label] { display: none; } .ng-len { display: none; } }
+
+  /* Empty state (before the first Generate, or when filters give nothing) */
+  .ng-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 4px; min-height: 300px; padding: 28px 20px; border-radius: 20px; border: 1.5px dashed var(--color-line-2); background: var(--color-well); }
+  .ng-empty p { margin: 0; }
+
+  /* Favourites (in memory only) */
+  .ng-favs { margin-top: auto; padding: 16px; border-radius: 18px; background: rgb(255 255 255 / 0.035); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.07); display: grid; gap: 12px; }
+  .ng-favs-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .ng-favs-title { display: inline-flex; align-items: center; gap: 8px; font-size: 16px; }
+  .ng-count { min-width: 24px; height: 22px; padding: 0 7px; border-radius: 99px; display: inline-grid; place-items: center; font-size: 12px; font-weight: 700; background: var(--color-warn-soft); color: var(--color-warn); }
+  .ng-favs-acts { display: flex; gap: 6px; }
+  .ng-favs-acts .chip { height: 36px; }
+  .ng-fav-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .ng-fav { display: inline-flex; align-items: center; gap: 2px; max-width: 100%; min-width: 0; height: 44px; padding: 2px 2px 2px 14px; border-radius: 12px; background: var(--color-well); box-shadow: inset 0 0 0 1px rgb(251 194 101 / 0.25); }
+  .ng-fav-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 650; font-size: 15px; margin-right: 4px; }
+  .ng-fav-note { font-size: 12.5px; }
+
+  /* Page sections */
+  .ng-step { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 12px; background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2)); color: #fff; font-weight: 750; font-size: 16px; }
+  .ng-style-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+  .ng-style { padding: 26px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .ng-style p { color: var(--color-ink-2); }
+  .ng-samples { margin: 0; }
+  .ng-samples span { font-size: 14px; font-weight: 650; }
+}
+
+/* Long site name: keep the header on one line on phones (tool sits right under the hero, so the CTA can go). */
+.site-header .brand { white-space: nowrap; }
+@media (max-width: 400px) {
+  .site-header .brand { font-size: 16.5px; }
+  .site-header .btn-light { display: none; }
+}
+/* While generating, the spinner takes the place of the More button so the header never squashes. */
+.ng-head:has(.ng-busy:not([hidden])) .ng-again { display: none; }
+@media (max-width: 919px) { .ng-empty { min-height: 240px; } .ng-empty .drop-title { font-size: 20px; } }
+/* The hidden attribute must win over component display rules (favourite actions, empty states). */
+.ng-tool [hidden] { display: none !important; }

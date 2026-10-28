@@ -47,7 +47,9 @@ for (const page of def.pages) {
   if (!out.noindex) indexable.push(page);
 }
 const base = def.site.url.replace(/\/$/, '');
-fs.writeFileSync(path.join(DIST, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${indexable.map((p) => `  <url><loc>${base}/${p.slug ? p.slug + '/' : ''}</loc></url>`).join('\n')}\n</urlset>\n`);
+// A site may list extra absolute URLs (the tool index lists every tool, taken from tools/*/manifest.json).
+const sitemapUrls = [...new Set([...indexable.map((p) => `${base}/${p.slug ? p.slug + '/' : ''}`), ...(def.sitemapUrls ? def.sitemapUrls() : [])])];
+fs.writeFileSync(path.join(DIST, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.map((u) => `  <url><loc>${u}</loc></url>`).join('\n')}\n</urlset>\n`);
 fs.writeFileSync(path.join(DIST, 'favicon.svg'), faviconSvg(def.site));
 // PNG/ICO icons are made once per tool with `python3 framework/make_icons.py <tool>` and kept in tools/<tool>/icons/.
 for (const f of ['favicon.ico', 'apple-touch-icon.png', 'icon-512.png']) {
@@ -72,6 +74,7 @@ for (const inc of def.include || []) {
   const urls = fs.readFileSync(subMap, 'utf8').match(/<url>.*?<\/url>/g) || [];
   fs.rmSync(subMap);
   const mainMap = path.join(DIST, 'sitemap.xml');
-  fs.writeFileSync(mainMap, fs.readFileSync(mainMap, 'utf8').replace('</urlset>', urls.map((u) => `  ${u}\n`).join('') + '</urlset>'));
+  const mainXml = fs.readFileSync(mainMap, 'utf8');
+  fs.writeFileSync(mainMap, mainXml.replace('</urlset>', urls.filter((u) => !mainXml.includes(u)).map((u) => `  ${u}\n`).join('') + '</urlset>'));
 }
 console.log(`built ${toolName}: ${def.pages.length} pages${preview ? ' (preview)' : ''} -> ${path.relative(ROOT, DIST)}`);

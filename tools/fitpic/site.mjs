@@ -23,7 +23,7 @@ const site = {
   nav: [{ id: 'kb', label: 'File size' }, { id: 'px', label: 'Pixels' }, { id: 'home', label: 'Popular sizes', hash: '#sizes' }],
   cta: (page) => page.tool,
   footerCols: [
-    { title: 'Tools', links: [{ id: 'kb', label: 'Reduce size in KB' }, { id: 'px', label: 'Resize to exact pixels' }, { path: 'instagram/', label: 'Video for Reels' }] },
+    { title: 'Tools', links: [{ id: 'kb', label: 'Reduce size in KB' }, { id: 'px', label: 'Resize to exact pixels' }, { path: 'instagram/', label: 'Video for Reels' }, { path: 'tools/', label: 'All tools' }] },
     { title: 'Popular sizes', links: [{ id: 'kb20', label: 'Under 20KB' }, { id: 'kb50', label: 'Under 50KB' }, { id: 'kb100', label: 'Under 100KB' }, { id: 'kb200', label: 'Under 200KB' }] },
     { title: 'Site', links: [{ id: 'about', label: 'About' }, { id: 'privacy', label: 'Privacy' }, { id: 'terms', label: 'Terms' }, { id: 'contact', label: 'Contact' }] },
   ],
@@ -231,6 +231,11 @@ ${adSlot(ctx, 'below-tool')}
   </div>
 </section>
 
+<section class="wrap mt-32">
+  ${sectionHead('How it works')}
+  ${howCards([['Choose a photo', 'Drop it in, paste it, or pick it from your device.'], ['Set the limit', 'Type a size in KB or MB, or exact pixels. Add a minimum size if the form has one.'], ['Download', 'Compare before and after, then save the file.']])}
+</section>
+
 <section id="sizes" class="wrap mt-32 scroll-mt-20">
   ${sectionHead('Popular sizes', 'Jump straight to the limit your form asks for.')}
   ${sizeTiles(ctx, page)}
@@ -399,7 +404,20 @@ export default {
   site,
   pages,
   // Other tools built into this site under a sub-path.
-  include: [{ tool: 'fitreel', path: 'instagram' }],
+  include: [
+    { tool: 'fitreel', path: 'instagram' },
+    { tool: 'hub', path: 'tools' },
+    { tool: 'name-generator', path: 'name-generator' },
+    { tool: 'qr-code', path: 'qr-code' },
+    { tool: 'image-converter', path: 'image-converter' },
+    { tool: 'image-cropper', path: 'image-cropper' },
+    { tool: 'image-resizer', path: 'image-resizer' },
+    { tool: 'image-edit', path: 'image-edit' },
+    { tool: 'business-card-maker', path: 'business-card-maker' },
+    { tool: 'timer-pomodoro', path: 'timer-pomodoro' },
+    { tool: 'word-counter', path: 'word-counter' },
+    { tool: 'mp3-to-mp4', path: 'mp3-to-mp4' },
+  ],
   // [source in this folder, destination in dist]
   copy: [
     ['src/tool.js', 'assets/tool.js'],

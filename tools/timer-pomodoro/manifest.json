@@ -1,0 +1,7 @@
+{
+  "name": "Timer and Pomodoro",
+  "slug": "timer-pomodoro",
+  "description": "Countdown timer, stopwatch with laps and a Pomodoro focus timer in one page. Accurate in background tabs, with optional alerts and a tab title countdown. Runs in your browser; nothing is stored.",
+  "keywords": ["online timer", "countdown timer", "stopwatch", "pomodoro timer", "focus timer", "lap timer"],
+  "category": "Productivity"
+}

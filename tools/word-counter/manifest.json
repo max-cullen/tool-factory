@@ -1,0 +1,14 @@
+{
+  "name": "Word Counter",
+  "slug": "word-counter",
+  "description": "Count words, characters, sentences and paragraphs, see reading and speaking time, check a character limit and list your top keywords. Runs in your browser; your text is never uploaded.",
+  "keywords": [
+    "word counter",
+    "character counter",
+    "reading time calculator",
+    "speaking time",
+    "keyword density",
+    "sentence counter"
+  ],
+  "category": "Text"
+}

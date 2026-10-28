@@ -1,0 +1,8 @@
+{
+  "name": "Fitpic image compressor",
+  "slug": "fitpic",
+  "description": "Fit any photo to an exact file size in KB or exact pixels, in your browser.",
+  "keywords": ["compress image to kb", "reduce image size", "resize image to exact pixels", "image compressor"],
+  "category": "Images",
+  "url": "https://usefitpic.com"
+}
