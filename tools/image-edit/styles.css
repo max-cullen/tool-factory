@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@import "../../framework/fonts.css";
+@import "../../framework/styles.css";
+@import "./tool.css";
+@source "./dist";
+@source "./src";
