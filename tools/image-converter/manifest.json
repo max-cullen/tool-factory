@@ -1,0 +1,7 @@
+{
+  "name": "Image Converter",
+  "slug": "image-converter",
+  "description": "Convert JPG, PNG and WebP images in your browser. Add many files at once, set the quality, then download each one or all of them as a ZIP. Nothing is uploaded.",
+  "keywords": ["image converter", "png to jpg", "jpg to png", "webp converter", "png to webp", "batch image converter", "convert images to zip"],
+  "category": "Images"
+}
