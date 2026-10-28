@@ -1,0 +1,85 @@
+/* Image Cropper: styles only this tool needs. Shared colours, type, buttons, .tool/.panel/.stage, .drop, .seg, .chip,
+   .note, .card and FAQ come from framework/styles.css. Everything here is prefixed cr- except .range. */
+@layer components {
+  /* ---------- Layout: stage (image) then panel. Desktop: panel in a 372px right column ---------- */
+  .cr-stage { padding: 14px; min-height: 360px; }
+  @media (min-width: 920px) { .cr-stage { padding: 20px; min-height: 560px; } }
+  .cr-panel { gap: 18px; }
+  .cr-stage .drop { min-height: 320px; }
+  @media (min-width: 920px) { .cr-stage .drop { min-height: 520px; } }
+  .cr-tool[data-state="ready"] .drop { display: none; }
+  .cr-err { margin-bottom: 12px; }
+  .cr-err span { overflow-wrap: anywhere; }
+
+  /* Step headings (same pattern as the other pilots) */
+  .cr-step { display: flex; align-items: center; gap: 10px; }
+  .cr-step-title { margin: 0; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+  .cr-num { flex: none; width: 26px; height: 26px; border-radius: 99px; display: grid; place-items: center; font-size: 13px; font-weight: 750; color: #fff; background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2)); }
+  .cr-num-lg { width: 36px; height: 36px; font-size: 15px; }
+  .cr-how { position: relative; }
+  .cr-f { display: grid; gap: 8px; min-width: 0; align-content: start; }
+
+  /* ---------- Working area ---------- */
+  .cr-work { flex: 1; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .cr-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; }
+  .cr-file { display: flex; align-items: baseline; gap: 10px; min-width: 0; font-size: 14px; color: var(--color-ink-2); }
+  .cr-file-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; max-width: 40vw; }
+  .cr-file-dim { flex: none; color: var(--color-ink-3); font-size: 13px; }
+  .cr-frame { flex: 1; display: grid; place-items: center; padding: 14px; border-radius: 20px; background: var(--color-well); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.07); min-width: 0; }
+  .cr-view { position: relative; flex: none; max-width: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+  .cr-clip { position: absolute; inset: 0; overflow: hidden; border-radius: 4px; background: repeating-conic-gradient(#2a2f58 0% 25%, #21264a 0% 50%) 0 0 / 16px 16px; }
+  .cr-canvas { display: block; width: 100%; height: 100%; }
+  .cr-dim { position: absolute; left: 0; top: 0; width: 0; height: 0; box-shadow: 0 0 0 9999px rgb(8 10 24 / 0.62); pointer-events: none; }
+  .cr-keys { margin: 0; }
+
+  /* The crop box. touch-action: none stops the page scrolling while a finger drags it. */
+  .cr-box { position: absolute; left: 0; top: 0; width: 0; height: 0; box-sizing: border-box; border: 2px solid #fff; cursor: move; touch-action: none; outline: none; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.45); }
+  .cr-box:focus-visible { outline: 3px solid var(--color-accent-ink); outline-offset: 3px; border-radius: 0; }
+  .cr-box.is-drag { cursor: grabbing; }
+  .cr-grid { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.15s; background:
+    linear-gradient(to right, transparent calc(33.333% - 0.5px), rgb(255 255 255 / 0.5) calc(33.333% - 0.5px) calc(33.333% + 0.5px), transparent calc(33.333% + 0.5px) calc(66.666% - 0.5px), rgb(255 255 255 / 0.5) calc(66.666% - 0.5px) calc(66.666% + 0.5px), transparent calc(66.666% + 0.5px)),
+    linear-gradient(to bottom, transparent calc(33.333% - 0.5px), rgb(255 255 255 / 0.5) calc(33.333% - 0.5px) calc(33.333% + 0.5px), transparent calc(33.333% + 0.5px) calc(66.666% - 0.5px), rgb(255 255 255 / 0.5) calc(66.666% - 0.5px) calc(66.666% + 0.5px), transparent calc(66.666% + 0.5px)); }
+  .cr-box:hover .cr-grid, .cr-box.is-drag .cr-grid, .cr-box:focus-visible .cr-grid { opacity: 1; }
+  /* Handles: a 30px hit area (44px on touch screens) around a small visible dot or bar. */
+  .cr-h { position: absolute; width: 30px; height: 30px; margin: -15px 0 0 -15px; display: grid; place-items: center; touch-action: none; }
+  .cr-h::after { content: ""; width: 12px; height: 12px; border-radius: 99px; background: #fff; box-shadow: 0 0 0 1.5px rgb(0 0 0 / 0.55), 0 2px 6px rgb(0 0 0 / 0.4); }
+  .cr-h-n::after, .cr-h-s::after { width: 22px; height: 7px; }
+  .cr-h-e::after, .cr-h-w::after { width: 7px; height: 22px; }
+  @media (pointer: coarse) { .cr-h { width: 44px; height: 44px; margin: -22px 0 0 -22px; } }
+  .cr-h-nw { left: 0; top: 0; cursor: nwse-resize; } .cr-h-ne { left: 100%; top: 0; cursor: nesw-resize; }
+  .cr-h-se { left: 100%; top: 100%; cursor: nwse-resize; } .cr-h-sw { left: 0; top: 100%; cursor: nesw-resize; }
+  .cr-h-n { left: 50%; top: 0; cursor: ns-resize; } .cr-h-s { left: 50%; top: 100%; cursor: ns-resize; }
+  .cr-h-e { left: 100%; top: 50%; cursor: ew-resize; } .cr-h-w { left: 0; top: 50%; cursor: ew-resize; }
+  /* Corners sit above the side handles when the box is small */
+  .cr-h-nw, .cr-h-ne, .cr-h-se, .cr-h-sw { z-index: 2; }
+
+  /* ---------- Panel ---------- */
+  .cr-ratios { display: flex; flex-wrap: wrap; gap: 8px; }
+  .cr-ratio { min-width: 52px; justify-content: center; height: 40px; }
+  .cr-swap { height: 32px; padding: 0 12px; gap: 6px; }
+  .cr-swap svg { margin: 0; }
+  .cr-swap:disabled { opacity: 0.4; cursor: default; }
+  .cr-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 0; }
+  .cr-facts div { padding: 10px 12px; border-radius: 13px; background: rgb(255 255 255 / 0.04); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06); min-width: 0; }
+  .cr-fact-main { grid-column: 1 / -1; }
+  .cr-facts dt { font-size: 11.5px; color: var(--color-ink-3); }
+  .cr-facts dd { margin: 2px 0 0; font-size: 14.5px; font-weight: 650; color: var(--color-ink); overflow-wrap: anywhere; }
+  .cr-fact-main dd { font-size: 20px; letter-spacing: -0.02em; }
+  .cr-val { font-size: 13px; font-weight: 650; color: var(--color-ink); }
+  .cr-result { margin: 0; min-height: 1.4em; font-size: 13.5px; color: var(--color-ink-2); }
+  .cr-priv { font-weight: 500; }
+  .cr-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .cr-tool .btn:disabled { opacity: 0.45; cursor: default; }
+  .cr-tool[data-state="empty"] .cr-panel { opacity: 0.6; }
+
+  /* Sliders (same look as the other pilots) */
+  .range { -webkit-appearance: none; appearance: none; width: 100%; height: 32px; margin: 0; background: transparent; cursor: pointer; }
+  .range::-webkit-slider-runnable-track { height: 6px; border-radius: 99px; background: rgb(255 255 255 / 0.1); }
+  .range::-moz-range-track { height: 6px; border-radius: 99px; background: rgb(255 255 255 / 0.1); }
+  .range::-moz-range-progress { height: 6px; border-radius: 99px; background: var(--color-accent); }
+  .range::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; margin-top: -9px; border-radius: 99px; background: #fff; border: 0; box-shadow: 0 2px 10px rgb(0 0 0 / 0.5); }
+  .range::-moz-range-thumb { width: 24px; height: 24px; border-radius: 99px; background: #fff; border: 0; box-shadow: 0 2px 10px rgb(0 0 0 / 0.5); }
+  .range:focus-visible { outline: none; }
+  .range:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px rgb(124 108 255 / 0.55); }
+  .range:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 4px rgb(124 108 255 / 0.55); }
+}
