@@ -66,7 +66,7 @@ test('About, Privacy, Terms and Contact are linked from every footer', () => {
 });
 
 test('internal links and the canonical set resolve to built pages', () => {
-  const extra = new Set(['instagram']); // FitReel is built into /instagram/ by the include in site.mjs
+  const extra = new Set((prod.def.include || []).map((i) => i.path)); // tools built into sub-folders by the includes in site.mjs (FitReel, the tool index, the other tools)
   for (const { page, html } of prod.pages) {
     const depth = page.slug ? 1 : 0;
     for (const m of strip(html).matchAll(/href="([^"#?]*)(#[^"]*)?"/g)) {
