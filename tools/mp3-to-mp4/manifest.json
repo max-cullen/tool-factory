@@ -1,0 +1,7 @@
+{
+  "name": "MP3 to MP4 Converter",
+  "slug": "mp3-to-mp4",
+  "description": "Turn an MP3 or other audio file plus a still picture into a video file. Made in your browser, nothing is uploaded. Makes MP4 where the browser can, WebM where it can not.",
+  "keywords": ["mp3 to mp4", "audio to video", "add image to audio", "mp3 to video", "audio with picture", "podcast to video", "webm"],
+  "category": "Video"
+}
